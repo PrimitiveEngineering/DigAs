@@ -24,3 +24,6 @@ class TestGoogleMapsApi(TestCase):
 
     def test_destinationIsString(self):
         self.assertEqual(True, GMA.destinationIsString("tisButAScratch"))
+
+    def test_selfTest(self):
+        self.assertEqual(True,True) #We love it!!!
