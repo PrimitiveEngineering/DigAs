@@ -7,9 +7,9 @@
 """
 
 from unittest import TestCase
-from core.googleMapsApi import GoogleMapsApi as GMA
+from core.googleMapsApi import GoogleMapsApi
 
-
+GMA = GoogleMapsApi()
 class TestGoogleMapsApi(TestCase):
 
     # def test_parameterValid(self):
@@ -17,10 +17,10 @@ class TestGoogleMapsApi(TestCase):
     #     self.assertEqual(stringToTest, "url&mode=walking&origins=origin&destinations=dest")
 
     def test_travelModeValid(self):
-        self.assertEqual(True, GMA.travelModeValid(GMA, "walking"))
+        self.assertEqual(True, GMA.travelModeValid("walking"))
 
     def test_originIsString(self):
-        self.assertEqual(True, GMA.originIsString(GMA, "iFartInYourGeneralDirection"))
+        self.assertEqual(True, GMA.originIsString("iFartInYourGeneralDirection"))
 
     def test_destinationIsString(self):
-        self.assertEqual(True, GMA.destinationIsString(GMA, "tisButAScratch"))
+        self.assertEqual(True, GMA.destinationIsString("tisButAScratch"))
