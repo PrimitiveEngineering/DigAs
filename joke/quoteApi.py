@@ -35,8 +35,3 @@ class QuoteApi:
     def getAuthor(self, json):
 
         return json['author']
-    
-
-quote = QuoteApi()
-
-print(quote.quoteApiRequest())
