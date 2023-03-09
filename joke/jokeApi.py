@@ -3,6 +3,15 @@ import json
 
 
 class JokeApi:
+    '''
+    Joke API
+
+    Arguments:
+    None
+
+    Returns:
+    - single line joke as string
+    '''
 
     payload = {}
     headers = {}
