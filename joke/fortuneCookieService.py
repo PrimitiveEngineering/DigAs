@@ -27,9 +27,3 @@ class FortuneCookieService:
         rand = random.randint(0, len(self.fortunes))
 
         return self.fortunes[rand]
-
-    
-
-fc = FortuneCookieService()
-
-print(fc.fortuneCookieServiceRequest())
