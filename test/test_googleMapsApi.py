@@ -8,6 +8,7 @@
 
 from unittest import TestCase
 from core.googleMapsApi import GoogleMapsApi
+from datetime import datetime
 
 GMA = GoogleMapsApi()
 
@@ -15,9 +16,12 @@ GMA = GoogleMapsApi()
 class TestGoogleMapsApi(TestCase):
 
     def test_parameterValid(self):
-        stringCorrect = "url&mode=transit&arrival_time=1000&origins=origin&destinations=dest"
-        stringToTest = GMA.parameterValid("transit", "origin", "dest", "1000", "url")
-        print(stringToTest)
+        stringCorrect = "url&mode=transit&arrival_time=1704021753&origins=origin&destinations=dest"
+        datetime_str = '12/31/23 11:22:33'
+        datetime_object = datetime.strptime(datetime_str, '%m/%d/%y %H:%M:%S')
+
+        stringToTest = GMA.parameterValid("transit", "origin", "dest", datetime_object, "url")
+
         self.assertEqual(stringCorrect, stringToTest)
 
 
