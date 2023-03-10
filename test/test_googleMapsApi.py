@@ -10,23 +10,31 @@ from unittest import TestCase
 from core.googleMapsApi import GoogleMapsApi
 
 GMA = GoogleMapsApi()
+
+
 class TestGoogleMapsApi(TestCase):
 
-    # def test_parameterValid(self):
-    #     stringToTest = GMA.parameterValid(GMA, "walking", "origin", "dest", "url")
-    #     self.assertEqual(stringToTest, "url&mode=walking&origins=origin&destinations=dest")
+    def test_parameterValid(self):
+        stringCorrect = "url&mode=transit&arrival_time=1000&origins=origin&destinations=dest"
+        stringToTest = GMA.parameterValid("transit", "origin", "dest", "1000", "url")
+        print(stringToTest)
+        self.assertEqual(stringCorrect, stringToTest)
+
 
     def test_travelModeValid(self):
         self.assertEqual(True, GMA.travelModeValid("walking"))
 
+
     def test_originIsString(self):
         self.assertEqual(True, GMA.originIsString("iFartInYourGeneralDirection"))
+
 
     def test_destinationIsString(self):
         self.assertEqual(True, GMA.destinationIsString("tisButAScratch"))
 
+
     def test_selfTest(self):
-        self.assertEqual(True,True) #We love it!!!
+        self.assertEqual(True, True)  # We love it!!!
 
 
 '''
