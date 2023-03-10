@@ -63,7 +63,7 @@ class AzureT2S(Text2SpeechInterface):
         speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config)
 
         if ssml:
-            result = speech_synthesizer.speak_ssml_async(self.build_ssml_headtail(text)).get()
+            result = speech_synthesizer.speak_ssml_async(self.build_ssml_headtail(text, self.voice, self.prosody)).get()
         else:
             result = speech_synthesizer.speak_text_async(text).get()
 
@@ -81,13 +81,13 @@ class AzureT2S(Text2SpeechInterface):
                 text = self.remove_ssml(text)
             OfflineT2S().trigger(text)
 
-    def build_ssml_headtail(self, text):
+    def build_ssml_headtail(self, text, voice, prosody):
         """
         adds the start and end ssml syntax to the text
         :param text: the message input for text to speech
         :return: text with start and end ssml properties
         """
-        return f"<speak xmlns=\"http://www.w3.org/2001/10/synthesis\" xmlns:mstts=\"http://www.w3.org/2001/mstts\" xmlns:emo=\"http://www.w3.org/2009/10/emotionml\" version=\"1.0\" xml:lang=\"en-US\"><voice name=\"{self.voice}\"><s /><prosody rate=\"{self.prosody}\">{text}</prosody><s /></voice></speak>"
+        return f"<speak xmlns=\"http://www.w3.org/2001/10/synthesis\" xmlns:mstts=\"http://www.w3.org/2001/mstts\" xmlns:emo=\"http://www.w3.org/2009/10/emotionml\" version=\"1.0\" xml:lang=\"en-US\"><voice name=\"{voice}\"><s /><prosody rate=\"{prosody}\">{text}</prosody><s /></voice></speak>"
 
     def remove_ssml(self, text):
         """
