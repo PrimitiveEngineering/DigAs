@@ -85,6 +85,8 @@ class AzureT2S(Text2SpeechInterface):
         """
         adds the start and end ssml syntax to the text
         :param text: the message input for text to speech
+        :param voice: Azure voice ID
+        :param prosody: Azure voice relative speed
         :return: text with start and end ssml properties
         """
         return f"<speak xmlns=\"http://www.w3.org/2001/10/synthesis\" xmlns:mstts=\"http://www.w3.org/2001/mstts\" xmlns:emo=\"http://www.w3.org/2009/10/emotionml\" version=\"1.0\" xml:lang=\"en-US\"><voice name=\"{voice}\"><s /><prosody rate=\"{prosody}\">{text}</prosody><s /></voice></speak>"
