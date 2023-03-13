@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import logging
 import pyttsx3
 import azure.cognitiveservices.speech as speechsdk
 from dotenv import load_dotenv
@@ -7,12 +8,21 @@ import re
 
 
 class Text2SpeechInterface(ABC):
+
+    __instance = None
+
+    # singleton pattern
+    def __new__(cls, *args, **kwargs):
+        if cls.__instance is None:
+            cls.__instance = super().__new__(cls)
+        return cls.__instance
+
     @abstractmethod
     def trigger(self, text, ssml=False):
         pass
 
 
-class OfflineT2S(Text2SpeechInterface):
+class _OfflineT2S(Text2SpeechInterface):
     """
     Offline text to speech functionality. Worse audio quality but it's free.
     """
@@ -32,7 +42,7 @@ class OfflineT2S(Text2SpeechInterface):
         engine.runAndWait()
 
 
-class AzureT2S(Text2SpeechInterface):
+class _AzureT2S(Text2SpeechInterface):
     """
     Online text to speech functionality. Uses Microsoft Azure speech service. Better audio quality but costs money.
 
@@ -79,7 +89,7 @@ class AzureT2S(Text2SpeechInterface):
             # Exception handling: Using Offline t2s
             if ssml:
                 text = self.remove_ssml(text)
-            OfflineT2S().trigger(text)
+            _OfflineT2S().trigger(text)
 
     def build_ssml_headtail(self, text, voice, prosody):
         """
@@ -100,3 +110,45 @@ class AzureT2S(Text2SpeechInterface):
         # REGEX: search for a substring that starts with < and ends with >.
         #        The [] exclude that no <> are contained per match.
         return re.sub("<[^<>]*>", "", text)
+
+
+class Text2SpeechFactory(object):
+    """
+    The Factory class for creating the special T2S interfaces.
+    """
+
+    def __new__(cls, mode):
+        av_mode = {
+            "offline": _OfflineT2S(),
+            "azure": _AzureT2S(),
+        }
+        mode = str.lower(mode)
+        if mode in av_mode.keys():
+            return av_mode.get(mode)
+        else:
+            logging.error(f"Text to speech mode {mode} not found. Falling back to OfflineT2S.")
+            return av_mode.get("offline")
+
+class Text2SpeechService:
+    """
+    This class should be used mainly for the text to speech functionality.
+    It is the combination of a singleton and strategy pattern
+    """
+
+    __instance = None
+    __t2s_interface = None
+
+    # singleton pattern
+    def __new__(cls, *args, **kwargs):
+        if cls.__instance is None:
+            cls.__instance = super().__new__(cls)
+        return cls.__instance
+
+    def __init__(self, mode):
+        self.change_mode(mode)
+
+    def change_mode(self, mode):
+        self.__t2s_interface = Text2SpeechFactory(mode)
+
+    def trigger(self, text, ssml):
+        self.__t2s_interface.trigger(text, ssml)

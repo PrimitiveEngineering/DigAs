@@ -1,14 +1,11 @@
-from core.textToSpeech import AzureT2S, OfflineT2S
+from core.textToSpeech import Text2SpeechService
 
 
 def showcaseT2S():
     offline_t2s = False
 
     # TODO: discuss .env file scope and use it here
-    if offline_t2s:
-        t2s = OfflineT2S()
-    else:
-        t2s = AzureT2S()
+    t2s = Text2SpeechService("Azure")
 
     if offline_t2s:
         text = "Good morning Jonathan. It is 10:00. Today the 03/09/2023 in Stuttgart cloudy weather is forecasted. " \
