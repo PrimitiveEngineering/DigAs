@@ -8,7 +8,6 @@ import re
 
 
 class Text2SpeechInterface(ABC):
-
     __instance = None
 
     # singleton pattern
@@ -128,6 +127,7 @@ class Text2SpeechFactory(object):
         else:
             logging.error(f"Text to speech mode {mode} not found. Falling back to OfflineT2S.")
             return av_mode.get("offline")
+
 
 class Text2SpeechService:
     """
