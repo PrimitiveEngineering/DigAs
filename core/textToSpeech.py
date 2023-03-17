@@ -45,16 +45,16 @@ class _AzureT2S(Text2SpeechInterface):
     """
     Online text to speech functionality. Uses Microsoft Azure speech service. Better audio quality but costs money.
 
-    :attribute speech_key: azure resource key
-    :attribute service_region: azure resource region
+    :attribute speech_key: (private) azure resource key
+    :attribute service_region: (private) azure resource region
     :attribute voice: azure voice id
     :attribute prosody: relative speed of speech
     """
 
     def __init__(self):
         load_dotenv()
-        self.speech_key = os.getenv('SPEECH_KEY')
-        self.service_region = os.getenv('SERVICE_REGION')
+        self.__speech_key = os.getenv('SPEECH_KEY')
+        self.__service_region = os.getenv('SERVICE_REGION')
         self.voice = "en-US-JennyMultilingualNeural"
         self.prosody = "-13.00%"
 
@@ -66,7 +66,7 @@ class _AzureT2S(Text2SpeechInterface):
         :return:
         """
 
-        speech_config = speechsdk.SpeechConfig(subscription=self.speech_key, region=self.service_region)
+        speech_config = speechsdk.SpeechConfig(subscription=self.__speech_key, region=self.__service_region)
         # Note: the voice setting will not overwrite the voice element in input SSML.
         speech_config.speech_synthesis_voice_name = self.voice
         speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config)
@@ -107,7 +107,7 @@ class _AzureT2S(Text2SpeechInterface):
         :param text: text with ssml properties
         :return: param text without cut out ssml properties
         """
-        
+
         # REGEX: search for a substring that starts with < and ends with >.
         #        The [] exclude that no <> are contained per match.
         return re.sub("<[^<>]*>", "", text)
