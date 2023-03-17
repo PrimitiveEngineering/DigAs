@@ -7,7 +7,7 @@ import os
 import re
 
 
-class Text2SpeechInterface(ABC):
+class Text2SpeechAbstract(ABC):
     __instance = None
 
     # singleton pattern
@@ -21,7 +21,7 @@ class Text2SpeechInterface(ABC):
         pass
 
 
-class _OfflineT2S(Text2SpeechInterface):
+class _OfflineT2S(Text2SpeechAbstract):
     """
     Offline text to speech functionality. Worse audio quality but it's free.
     """
@@ -41,7 +41,7 @@ class _OfflineT2S(Text2SpeechInterface):
         engine.runAndWait()
 
 
-class _AzureT2S(Text2SpeechInterface):
+class _AzureT2S(Text2SpeechAbstract):
     """
     Online text to speech functionality. Uses Microsoft Azure speech service. Better audio quality but costs money.
 
