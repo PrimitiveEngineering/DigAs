@@ -21,12 +21,25 @@ class Text2SpeechAbstract(ABC):
         pass
 
 
+class OnlineT2SnotAvailable(Exception):
+    """
+    Exception if some online t2s isn't working as expected
+    """
+
+    def __init__(self, message):
+        """
+        Exception if some online t2s isn't working as expected
+        :param message: error message
+        """
+        logging.error(message)
+
+
 class _OfflineT2S(Text2SpeechAbstract):
     """
     Offline text to speech functionality. Worse audio quality but it's free.
     """
 
-    def trigger(self, text, ssml=False):
+    def trigger(self, text, ssml):
         """
         Outputs the entered text as audio output.
         :param text: text input
@@ -37,8 +50,21 @@ class _OfflineT2S(Text2SpeechAbstract):
         engine.setProperty('rate', 150)
         voices = engine.getProperty('voices')
         engine.setProperty('voice', voices[1].id)  # Change index to change voice
+        if ssml:
+            text = self.remove_ssml(text)
         engine.say(text)
         engine.runAndWait()
+
+    def remove_ssml(self, text):
+        """
+        removes ssml properties
+        :param text: text with ssml properties
+        :return: param text without cut out ssml properties
+        """
+
+        # REGEX: search for a substring that starts with < and ends with >.
+        #        The [] exclude that no <> are contained per match.
+        return re.sub("<[^<>]*>", "", text)
 
 
 class _AzureT2S(Text2SpeechAbstract):
@@ -78,17 +104,17 @@ class _AzureT2S(Text2SpeechAbstract):
 
         # Check result
         if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
-            print("Speech synthesized for text [{}]".format(text))
+            # print("Speech synthesized for text [{}]".format(text))
+            pass
         elif result.reason == speechsdk.ResultReason.Canceled:
             cancellation_details = result.cancellation_details
-            print("Speech synthesis canceled: {}".format(cancellation_details.reason))
+            # print("Speech synthesis canceled: {}".format(cancellation_details.reason))
             if cancellation_details.reason == speechsdk.CancellationReason.Error:
-                print("Error details: {}".format(cancellation_details.error_details))
+                # print("Error details: {}".format(cancellation_details.error_details))
+                pass
 
-            # Exception handling: Using Offline t2s
-            if ssml:
-                text = self.remove_ssml(text)
-            _OfflineT2S().trigger(text)
+            # Throw exception
+            raise OnlineT2SnotAvailable("AzureT2S failed")
 
     def build_ssml_headtail(self, text, voice, prosody):
         """
@@ -100,17 +126,6 @@ class _AzureT2S(Text2SpeechAbstract):
         """
 
         return f"<speak xmlns=\"http://www.w3.org/2001/10/synthesis\" xmlns:mstts=\"http://www.w3.org/2001/mstts\" xmlns:emo=\"http://www.w3.org/2009/10/emotionml\" version=\"1.0\" xml:lang=\"en-US\"><voice name=\"{voice}\"><s /><prosody rate=\"{prosody}\">{text}</prosody><s /></voice></speak>"
-
-    def remove_ssml(self, text):
-        """
-        removes ssml properties
-        :param text: text with ssml properties
-        :return: param text without cut out ssml properties
-        """
-
-        # REGEX: search for a substring that starts with < and ends with >.
-        #        The [] exclude that no <> are contained per match.
-        return re.sub("<[^<>]*>", "", text)
 
 
 class Text2SpeechFactory(object):
@@ -138,7 +153,7 @@ class Text2SpeechService:
     """
 
     __instance = None
-    __t2s_interface = None
+    __t2s_abstract = None
 
     # singleton pattern
     def __new__(cls, *args, **kwargs):
@@ -150,7 +165,13 @@ class Text2SpeechService:
         self.change_mode(mode)
 
     def change_mode(self, mode):
-        self.__t2s_interface = Text2SpeechFactory(mode)
+        self.__t2s_abstract = Text2SpeechFactory(mode)
 
     def trigger(self, text, ssml):
-        self.__t2s_interface.trigger(text, ssml)
+        try:
+            self.__t2s_abstract.trigger(text, ssml)
+        except OnlineT2SnotAvailable:
+            fallback_t2s = Text2SpeechFactory("offline")
+            if ssml:
+                text = fallback_t2s.remove_ssml(text)
+            fallback_t2s.trigger(text, False)
