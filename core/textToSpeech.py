@@ -98,6 +98,7 @@ class _AzureT2S(Text2SpeechInterface):
         :param prosody: Azure voice relative speed
         :return: text with start and end ssml properties
         """
+
         return f"<speak xmlns=\"http://www.w3.org/2001/10/synthesis\" xmlns:mstts=\"http://www.w3.org/2001/mstts\" xmlns:emo=\"http://www.w3.org/2009/10/emotionml\" version=\"1.0\" xml:lang=\"en-US\"><voice name=\"{voice}\"><s /><prosody rate=\"{prosody}\">{text}</prosody><s /></voice></speak>"
 
     def remove_ssml(self, text):
@@ -106,6 +107,7 @@ class _AzureT2S(Text2SpeechInterface):
         :param text: text with ssml properties
         :return: param text without cut out ssml properties
         """
+        
         # REGEX: search for a substring that starts with < and ends with >.
         #        The [] exclude that no <> are contained per match.
         return re.sub("<[^<>]*>", "", text)
