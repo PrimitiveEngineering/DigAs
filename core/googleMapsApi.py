@@ -16,22 +16,7 @@ class GoogleMapsApiException(Exception):
 
 class GoogleMapsApi:
     """
-    Google Maps API
-
-    Arguments:
-    - origin            (required)
-    - destination       (required)
-    - travelMode        (optional; types: driving, driving, transit, walking)
-    - arrivalTime       (optional; only available when travelMode is transit;
-                        type: datetime(year, month, day, hour, minutes) (all as integer))
-    - returnStringOnly  (default: True; if False: return Values for distance and duration
-                        as integer in meter and seconds)
-
-    Returns:
-    - distance as tts string
-    - distance as integer in meter (if returnStringOnly=False)
-    - destination as tts string
-    - destination as integer in seconds (if returnStringOnly=False)
+    Google Maps API for receiving distance and travel time between two locations
     """
 
     baseUrl = 'https://maps.googleapis.com/maps/api/distancematrix/json?key=' + os.getenv('GOOGLE_API_KEY')
@@ -54,6 +39,22 @@ class GoogleMapsApi:
     headers = {}
 
     def googleMapsApiRequest(self, origin, destination, travelMode='driving', arrivalTime=None, returnStringsOnly='True'):
+        """
+        Arguments:
+        - origin            (required)
+        - destination       (required)
+        - travelMode        (optional; types: driving, driving, transit, walking)
+        - arrivalTime       (optional; only available when travelMode is transit;
+                            type: datetime(year, month, day, hour, minutes) (all as integer))
+        - returnStringOnly  (default: True; if False: return Values for distance and duration
+                            as integer in meter and seconds)
+
+        Returns:
+        - distance as tts string
+        - distance as integer in meter (if returnStringOnly=False)
+        - destination as tts string
+        - destination as integer in seconds (if returnStringOnly=False)
+        """
 
         url = self.parameterValid(travelMode, origin, destination, arrivalTime, self.baseUrl)
 
