@@ -3,7 +3,7 @@ import logging
 import speech_recognition as sr
 
 
-class Speech2TextInterface(ABC):
+class Speech2TextAbstract(ABC):
     __instance = None
 
     # singleton pattern
@@ -17,7 +17,20 @@ class Speech2TextInterface(ABC):
         pass
 
 
-class _OfflineS2T(Speech2TextInterface):
+class OnlineS2TnotAvailable(Exception):
+    """
+    Exception if some online s2t isn't working as expected
+    """
+
+    def __init__(self, message):
+        """
+        Exception if some online s2t isn't working as expected
+        :param message: error message
+        """
+        logging.error(message)
+
+
+class _OfflineS2T(Speech2TextAbstract):
     """
     Offline Speech to Text functionality. Worse audio recognition but it's always available.
     """
@@ -37,13 +50,15 @@ class _OfflineS2T(Speech2TextInterface):
         # recognize speech using Sphinx
         print("Sphinx:")
         try:
-            print("\"" + r.recognize_sphinx(audio) + "\"")
+            output = r.recognize_sphinx(audio)
+            return (output, True)
         except sr.UnknownValueError:
-            print("Sphinx could not understand audio")
+            return ("Sphinx could not understand audio", False)
         except sr.RequestError as e:
-            print("Sphinx error; {0}".format(e))
+            return ("Sphinx error; {0}".format(e), False)
 
-class _GoogleS2T(Speech2TextInterface):
+
+class _GoogleS2T(Speech2TextAbstract):
     """
     Offline Text to Speech functionality. Better audio recognition but it needs an internet connection.
     """
@@ -64,12 +79,12 @@ class _GoogleS2T(Speech2TextInterface):
         print("Google:")
         try:
             output = r.recognize_google(audio)
-            return output
+            return (output, True)
         except sr.UnknownValueError:
-            return "Google Speech Recognition could not understand audio"
+            return ("Google Speech Recognition could not understand audio", False)
         except sr.RequestError as e:
-            return ("Could not request results from Google Speech Recognition service; {0}".format(e))
-
+            # Throw exception
+            raise OnlineS2TnotAvailable("GoogleS2T failed")
 
 
 class Speech2TextFactory(object):
@@ -97,7 +112,7 @@ class Speech2TextService:
     """
 
     __instance = None
-    __s2t_interface = None
+    __s2t_abstract = None
 
     # singleton pattern
     def __new__(cls, *args, **kwargs):
@@ -109,7 +124,7 @@ class Speech2TextService:
         self.change_mode(mode)
 
     def change_mode(self, mode):
-        self.__s2t_interface = Speech2TextFactory(mode)
+        self.__s2t_abstract = Speech2TextFactory(mode)
 
-    def trigger(self, text, ssml):
-        self.__s2t_interface.trigger()
+    def trigger(self):
+        self.__s2t_abstract.trigger()
