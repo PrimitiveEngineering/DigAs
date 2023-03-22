@@ -22,10 +22,8 @@ class TestWeatherApi(TestCase):
             mock_get.return_value.status_code = 200
             mock_get.return_value.json.return_value = mock_response
 
-            # Call the function with a city name
             result = OW.get_weather("Los Santos")
 
-            # Check the response
             self.assertEqual(result, {'description': 'sunny', 'feels_like': 21.9, 'max_temp': 31.9, 'temp': 26.9})
 
     def test_kelvin_to_celsius(self):
