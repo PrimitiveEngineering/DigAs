@@ -127,4 +127,8 @@ class Speech2TextService:
         self.__s2t_abstract = Speech2TextFactory(mode)
 
     def trigger(self):
-        self.__s2t_abstract.trigger()
+        try:
+            return self.__s2t_abstract.trigger()
+        except OnlineS2TnotAvailable:
+            fallback_s2t = Speech2TextFactory("offline")
+            return fallback_s2t.trigger()
