@@ -9,6 +9,8 @@
 from unittest import TestCase
 from core.googleMapsApi import GoogleMapsApi
 from datetime import datetime
+import json
+
 
 GMA = GoogleMapsApi()
 
@@ -36,10 +38,33 @@ class TestGoogleMapsApi(TestCase):
     def test_destinationIsString(self):
         self.assertEqual(True, GMA.destinationIsString("tisButAScratch"))
 
+    def test_getDuration(self):
+        f = open('testResponse.json')
+        data = json.load(f)
+        CorrectString = "1 stunde 56 minuten"
+        self.assertEqual(CorrectString,GMA.getDuration(data))
 
-    def test_selfTest(self):
-        self.assertEqual(True, True)  # We love it!!!
+    def test_getDistance(self):
+        f = open('testResponse.json')
+        data = json.load(f)
+        CorrectString = "69.1 kilometer"
+        self.assertEqual(CorrectString,GMA.getDistance(data))
 
+    def test_getDurationValue(self):
+        f = open('testResponse.json')
+        data = json.load(f)
+        CorrectString = 6969
+        self.assertEqual(CorrectString,GMA.getDurationValue(data))
+
+    def test_getDistanceValue(self):
+        f = open('testResponse.json')
+        data = json.load(f)
+        CorrectString = 42069
+        self.assertEqual(CorrectString,GMA.getDistanceValue(data))
+
+    def test_googleMapsApiRequest(self):
+        CorrectString = ('22.9 kilometer', '1 stunde 9 minuten')
+        self.assertEqual(CorrectString,GMA.googleMapsApiRequest("Filderstadt", "Stuttgart", 'transit', arrivalTime=datetime(2023, 4, 12, 3)))
 
 '''
 Anfrage:

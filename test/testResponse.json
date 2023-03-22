@@ -1,0 +1,22 @@
+{
+    "destination_addresses" : [ "Stuttgart, Germany" ],
+    "origin_addresses" : [ "Musterstadt, Germany" ],
+    "rows" : [
+        {
+            "elements" : [
+            {
+                "distance" : {
+                    "text" : "69.1 km",
+                    "value" : 42069
+                },
+                "duration" : {
+                    "text" : "1 hour 56 mins",
+                    "value" : 6969
+                },
+                "status" : "OK"
+            }
+            ]
+        }
+    ],
+    "status" : "OK"
+}
