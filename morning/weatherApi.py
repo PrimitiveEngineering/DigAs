@@ -1,10 +1,16 @@
 import requests
 from dotenv import load_dotenv
 import os
+import logging
 
 
 class OpenWeatherCityNotFound(Exception):
-    pass
+    def __init__(self, message):
+        """
+        Exception if city couldn't be found
+        :param message: error message
+        """
+        logging.error(message)
 
 
 class OpenWeather:
@@ -13,7 +19,7 @@ class OpenWeather:
     """
 
     __api_key = None
-    __base_url = "http://api.openweathermap.org/data/2.5/weather?"
+    __base_url = "https://api.openweathermap.org/data/2.5/weather?"
 
     def __init__(self):
         load_dotenv()
