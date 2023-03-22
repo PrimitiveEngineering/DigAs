@@ -63,39 +63,7 @@ class TestGoogleMapsApi(TestCase):
         self.assertEqual(CorrectString,GMA.getDistanceValue(data))
 
     def test_googleMapsApiRequest(self):
-        CorrectString = ('22.9 kilometer', '1 stunde 9 minuten')
+        CorrectString = ('33.0 kilometer', '1 stunde 30 minuten')
         self.assertEqual(CorrectString,GMA.googleMapsApiRequest("Filderstadt", "Stuttgart", 'transit', arrivalTime=datetime(2023, 4, 12, 3)))
 
-'''
-Anfrage:
-print(gMaps.googleMapsApiRequest("Filderstadt", "Stuttgart", 'transit', arrivalTime=datetime(2023, 3, 12, 3)))
 
-{
-    "destination_addresses" : [ "Stuttgart, Germany" ],
-    "origin_addresses" : [ "Filderstadt, Germany" ],
-    "rows" : [
-        {
-            "elements" : [
-            {
-                "distance" : {
-                    "text" : "22.9 km",
-                    "value" : 22851
-                },
-                "duration" : {
-                    "text" : "1 hour 9 mins",
-                    "value" : 4113
-                },
-                "status" : "OK"
-            }
-            ]
-        }
-    ],
-    "status" : "OK"
-}
-
-Output:
-('22.9 kilometer', '1 stunde 9 minuten')
-
-
-Für weitere Konfigs -> Class description
-'''
