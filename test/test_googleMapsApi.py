@@ -7,7 +7,7 @@
 """
 
 from unittest import TestCase
-from core.googleMapsApi import GoogleMapsApi
+from morning.googleMapsApi import GoogleMapsApi
 from datetime import datetime
 import json
 
@@ -22,48 +22,48 @@ class TestGoogleMapsApi(TestCase):
         datetime_str = '12/31/23 11:22:33'
         datetime_object = datetime.strptime(datetime_str, '%m/%d/%y %H:%M:%S')
 
-        stringToTest = GMA.parameterValid("transit", "origin", "dest", datetime_object, "url")
+        stringToTest = GMA.parameter_valid("transit", "origin", "dest", datetime_object, "url")
 
         self.assertEqual(stringCorrect, stringToTest)
 
 
     def test_travelModeValid(self):
-        self.assertEqual(True, GMA.travelModeValid("walking"))
+        self.assertEqual(True, GMA.travel_mode_valid("walking"))
 
 
     def test_originIsString(self):
-        self.assertEqual(True, GMA.originIsString("iFartInYourGeneralDirection"))
+        self.assertEqual(True, GMA.origin_is_string("iFartInYourGeneralDirection"))
 
 
     def test_destinationIsString(self):
-        self.assertEqual(True, GMA.destinationIsString("tisButAScratch"))
+        self.assertEqual(True, GMA.destination_is_string("tisButAScratch"))
 
     def test_getDuration(self):
         f = open('testResponse.json')
         data = json.load(f)
         CorrectString = "1 stunde 56 minuten"
-        self.assertEqual(CorrectString,GMA.getDuration(data))
+        self.assertEqual(CorrectString, GMA.get_duration(data))
 
     def test_getDistance(self):
         f = open('testResponse.json')
         data = json.load(f)
         CorrectString = "69.1 kilometer"
-        self.assertEqual(CorrectString,GMA.getDistance(data))
+        self.assertEqual(CorrectString, GMA.get_distance(data))
 
     def test_getDurationValue(self):
         f = open('testResponse.json')
         data = json.load(f)
         CorrectString = 6969
-        self.assertEqual(CorrectString,GMA.getDurationValue(data))
+        self.assertEqual(CorrectString, GMA.get_duration_value(data))
 
     def test_getDistanceValue(self):
         f = open('testResponse.json')
         data = json.load(f)
         CorrectString = 42069
-        self.assertEqual(CorrectString,GMA.getDistanceValue(data))
+        self.assertEqual(CorrectString, GMA.get_distance_value(data))
 
     def test_googleMapsApiRequest(self):
         CorrectString = ('33.0 kilometer', '1 stunde 30 minuten')
-        self.assertEqual(CorrectString,GMA.googleMapsApiRequest("Filderstadt", "Stuttgart", 'transit', arrivalTime=datetime(2023, 4, 12, 3)))
+        self.assertEqual(CorrectString, GMA.google_maps_api_request("Filderstadt", "Stuttgart", 'transit', arrival_time=datetime(2023, 4, 12, 3)))
 
 
