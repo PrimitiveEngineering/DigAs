@@ -1,7 +1,7 @@
 """ test_main
     * all basic-tests for Google-Maps-API are implemented here
     author:     inf20086@lehre.dhbw-stuttgart.de
-    date:       06.03.2023
+    date:       22.03.2023
     version:    0.0.1
     license:    MIT
 """
