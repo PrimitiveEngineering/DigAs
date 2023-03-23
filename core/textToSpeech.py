@@ -168,6 +168,7 @@ class Text2SpeechService:
         self.__t2s_abstract = Text2SpeechFactory(mode)
 
     def trigger(self, text, ssml):
+        print(Text2SpeechFactory("offline").remove_ssml(text)) # DEBUG
         try:
             self.__t2s_abstract.trigger(text, ssml)
         except OnlineT2SnotAvailable:

@@ -75,8 +75,8 @@ class _GoogleS2T(Speech2TextAbstract):
             print("Say something!")
             audio = r.listen(source)
 
+        print("processing...")
         # recognize speech using Google Speech Recognition
-        print("Google:")
         try:
             output = r.recognize_google(audio)
             return (output, True)

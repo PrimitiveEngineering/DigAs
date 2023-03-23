@@ -62,7 +62,7 @@ class GoogleMapsApi:
         response = requests.request("GET", url, headers=self.headers, data=self.payload)
         response_json = json.loads(response.text)
 
-        print(response.text)
+        # print(response.text)
 
         if return_strings_only:
             return self.get_distance(response_json), self.get_duration(response_json)
@@ -112,9 +112,10 @@ class GoogleMapsApi:
     def get_duration(self, response_json):
         duration = response_json['rows'][0]['elements'][0]['duration']['text']
 
-        for english, german in self.duration_dictionary.items():
-            if 'minuten' not in duration:
-                duration = duration.replace(english, german)
+        # DEBUG
+        # for english, german in self.duration_dictionary.items():
+        #     if 'minuten' not in duration:
+        #         duration = duration.replace(english, german)
 
         return duration
 
