@@ -16,10 +16,10 @@ class FortuneCookieService:
     fortunes = []
 
     def __init__(self) -> None:
-        f = open("joke/fortuneList.txt", "r", encoding='utf8')
-        Lines = f.readlines()
+        f = open("fortuneList.txt", "r", encoding='utf8')
+        lines = f.readlines()
 
-        for line in Lines:
+        for line in lines:
             self.fortunes.append(line)
 
     def fortuneCookieServiceRequest(self):
