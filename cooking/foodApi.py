@@ -1,6 +1,7 @@
 import os
 import requests
 import json
+
 from dotenv import load_dotenv, find_dotenv
 
 
@@ -49,6 +50,7 @@ class FoodApi:
             step_descriptions.append(steps['step'])
 
         return step_descriptions
+
     def extract_ingredients_to_dictionary(self, extended_ingredients):
         ingredient_dic = {}
         for ingredient in extended_ingredients:
