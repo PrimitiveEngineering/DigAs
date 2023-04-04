@@ -7,7 +7,7 @@ from dotenv import load_dotenv, find_dotenv
 
 class FoodApi:
     """
-    FoodApi that returns random or specific repices
+    FoodApi that returns random or specific recipe
     """
 
     api_key = None
@@ -39,7 +39,7 @@ class FoodApi:
         response_json = json.loads(response.text)
         recipe_id = response_json[random.randint(0, len(response_json)-1)]['id']
 
-        return self.extract_recipe_informations(recipe_id)
+        return self.extract_recipe_information(recipe_id)
 
     def food_api_random_request(self):
         """
@@ -58,9 +58,9 @@ class FoodApi:
         response_json = json.loads(response.text)
         recipe_id = response_json['recipes'][random.randint(0, len(response_json['recipes'])-1)]['id']
 
-        return self.extract_recipe_informations(recipe_id)
+        return self.extract_recipe_information(recipe_id)
 
-    def extract_recipe_informations(self, recipe_id):
+    def extract_recipe_information(self, recipe_id):
 
         url = 'https://api.spoonacular.com/recipes/' + str(recipe_id) + '/information?apiKey=' + self.api_key
 
