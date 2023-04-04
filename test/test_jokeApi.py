@@ -1,4 +1,4 @@
-""" test_jokeApi
+
     * all basic-tests for joke-API are implemented here
     author:     inf20086@lehre.dhbw-stuttgart.de
     date:       04.04.2023
@@ -44,3 +44,4 @@ class TestJokeApi(unittest.TestCase):
                                                  data={})
 
             self.assertEqual(result, expected_api_result['joke'])
+
