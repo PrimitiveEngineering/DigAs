@@ -1,7 +1,7 @@
 import requests
 import json
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 import time
 from datetime import timezone
 
@@ -18,7 +18,7 @@ class GoogleMapsApi:
     """
 
     def __init__(self):
-        load_dotenv()
+        load_dotenv(find_dotenv())
         self.__base_url = 'https://maps.googleapis.com/maps/api/distancematrix/json?key=' + os.getenv('GOOGLE_API_KEY')
 
     available_travel_modes = [

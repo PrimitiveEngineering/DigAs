@@ -1,5 +1,5 @@
 import requests
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 import os
 import logging
 
@@ -22,7 +22,7 @@ class OpenWeather:
     __base_url = "https://api.openweathermap.org/data/2.5/weather?"
 
     def __init__(self):
-        load_dotenv()
+        load_dotenv(find_dotenv())
         self.__api_key = os.getenv('OPENWEATHER_API_KEY')
 
     def get_weather(self, city):
