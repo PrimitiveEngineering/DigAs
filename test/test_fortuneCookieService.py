@@ -17,5 +17,5 @@ class TestFortuneCookieService(unittest.TestCase):
         self.assertIsInstance(FCS.fortune_cookie_service_request(),str)
 
     def test_fortuneCookieServiceRequest_content(self):
-        correct_string = "He’s not the Messiah , he’s a very naughty boy."
-        self.assertEqual(correct_string,FCS.fortune_cookie_service_request())
+        correct_string = "A beautiful, smart, and loving person will be coming into your life.\n"
+        self.assertEqual(correct_string,FCS.fortune_cookie_service_request(joke_number=0))
