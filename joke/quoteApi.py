@@ -22,9 +22,9 @@ class QuoteApi:
 
         response = requests.request("GET", url, headers=self.headers, data=self.payload)
         response_json = json.loads(response.text)
-
+        
         return self.get_content(response_json), self.get_author(response_json)
-
+    
     def get_content(self, json):
         return json['content']
 
