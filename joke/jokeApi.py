@@ -49,7 +49,9 @@ class JokeApi:
         if blacklist is None:
             return ''
 
+
         blacklist_string = '&blacklistFlags='
+
 
         for bl in blacklist:
             if bl not in self.blacklist_options:
