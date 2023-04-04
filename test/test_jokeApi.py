@@ -1,10 +1,13 @@
+*all
+basic - tests
+for joke - API are implemented here
+author: inf20086 @ lehre.dhbw - stuttgart.de
+date: 04.04
+.2023
+version: 0.0
+.1
+license: MIT
 
-    * all basic-tests for joke-API are implemented here
-    author:     inf20086@lehre.dhbw-stuttgart.de
-    date:       04.04.2023
-    version:    0.0.1
-    license:    MIT
-"""
 import unittest
 import json
 from unittest.mock import patch, Mock
@@ -44,4 +47,3 @@ class TestJokeApi(unittest.TestCase):
                                                  data={})
 
             self.assertEqual(result, expected_api_result['joke'])
-
