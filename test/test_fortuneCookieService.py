@@ -14,7 +14,7 @@ FCS = FortuneCookieService()
 
 class TestFortuneCookieService(unittest.TestCase):
     def test_fortuneCookieServiceRequest_type(self):
-        self.assertIsInstance(FCS.fortune_cookie_service_request(),str)
+        self.assertIsInstance(FCS.fortune_cookie_service_request(), str)
 
     def test_fortuneCookieServiceRequest_content(self):
         correct_string = "A beautiful, smart, and loving person will be coming into your life.\n"
