@@ -2,7 +2,7 @@ import random
 
 
 class FortuneCookieService:
-    '''
+    """
     Fortune Cookie Service
 
     Arguments:
@@ -10,8 +10,7 @@ class FortuneCookieService:
 
     Returns:
     - quote as string
-    '''
-
+    """
 
     fortunes = []
 
@@ -22,8 +21,7 @@ class FortuneCookieService:
         for line in lines:
             self.fortunes.append(line)
 
-    def fortuneCookieServiceRequest(self):
-
+    def fortune_cookie_service_request(self):
         rand = random.randint(0, len(self.fortunes))
 
         return self.fortunes[rand]

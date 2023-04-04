@@ -1,13 +1,14 @@
 import requests
 import json
 
+
 class JokeApiBlacklistOptionNotFound(Exception):
     """
     Is raised when a blacklist option is not found
     """
 
-class JokeApi:
 
+class JokeApi:
     blacklist_options = [
         'nsfw',
         'religious',
