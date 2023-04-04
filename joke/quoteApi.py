@@ -3,7 +3,6 @@ import json
 
 
 class QuoteApi:
-
     payload = {}
     headers = {}
 
@@ -27,9 +26,7 @@ class QuoteApi:
         return self.get_content(response_json), self.get_author(response_json)
     
     def get_content(self, json):
-
         return json['content']
 
     def get_author(self, json):
-
         return json['author']

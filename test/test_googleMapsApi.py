@@ -1,4 +1,4 @@
-""" test_main
+""" test_googleMapsApi
     * all basic-tests for Google-Maps-API are implemented here
     author:     inf20086@lehre.dhbw-stuttgart.de
     date:       22.03.2023
