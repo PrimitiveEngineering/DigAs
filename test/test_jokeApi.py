@@ -7,7 +7,7 @@
 """
 import unittest
 import json
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch, Mock
 from joke.jokeApi import JokeApi
 
 JA = JokeApi()
@@ -16,9 +16,9 @@ JA = JokeApi()
 class TestJokeApi(unittest.TestCase):
     def test_get_joke(self):
         json_data = {"category": "Programming", "type": "single",
-                     "joke": "Excuse me. Are you the Judean People’s Front? - F*** off! ‘Judean People’s Front’?. We’re the People’s Front of Judea!'",
+                     "joke": "Excuse me. Are you the Judean People’s Front? - F*** off! ‘Judean People’s Front’?. We’re the People’s Front of Judea!",
                      }
-        correct_string = "Excuse me. Are you the Judean People’s Front? - F*** off! ‘Judean People’s Front’?. We’re the People’s Front of Judea!'"
+        correct_string = "Excuse me. Are you the Judean People’s Front? - F*** off! ‘Judean People’s Front’?. We’re the People’s Front of Judea!"
         self.assertEqual(correct_string, JA.get_joke(json_data))
 
     def test_get_blacklist_string(self):
@@ -28,19 +28,19 @@ class TestJokeApi(unittest.TestCase):
     def test_joke_api_request_type(self):
         self.assertIsInstance(JA.joke_api_request(), str)
 
-    def test_joke_api_request_content(self,mock_request):
-        # Define the expected return value from the API
-        response_json = {"joke": "Why did the chicken cross the playground? To get to the other slide."}
-        mock_request.return_value.text = json.dumps(response_json)
+    def test_joke_api_request_content(self):
+        expected_api_result = {
+            'joke': 'Excuse me. Are you the Judean People’s Front? - F*** off! ‘Judean People’s Front’?. We’re the People’s Front of Judea!'}
 
-        # Call the function
-        result = JA.joke_api_request()
+        mock_response = Mock()
+        mock_response.text = json.dumps(expected_api_result)
 
-        # Check that the mock request was made with the correct arguments
-        mock_request.assert_called_once_with(
-            "GET", "https://v2.jokeapi.dev/joke/Any?type=single",
-            headers=self.obj.headers, data=self.obj.payload
-        )
+        with patch('requests.request') as mock_request:
+            mock_request.return_value = mock_response
 
-        # Check that the function returned the expected result
-        self.assertEqual(result, response_json['joke'])
+            result = JA.joke_api_request()
+
+            mock_request.assert_called_once_with('GET', 'https://v2.jokeapi.dev/joke/Any?type=single', headers={},
+                                                 data={})
+
+            self.assertEqual(result, expected_api_result['joke'])
