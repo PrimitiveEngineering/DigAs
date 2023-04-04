@@ -23,4 +23,4 @@ def showcaseT2S():
     t2s.trigger(text, True)
 
 
-showcaseT2S()
+# showcaseT2S()

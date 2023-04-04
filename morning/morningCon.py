@@ -10,8 +10,6 @@ class MorningCon:
     mock_origin = "Gropiusplatz 9 Stuttgart"
     mock_meeting_place = "DHBW Fakultät Technik Stuttgart"
 
-    mock_temp = ""
-
     def __init__(self, t2s, s2t):
         self.t2s = t2s
         self.s2t = s2t

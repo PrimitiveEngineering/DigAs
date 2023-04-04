@@ -19,7 +19,7 @@ class Speech2TextUtil:
 
     def user_input_func(self, s2t, t2s):
         """
-        Starts user input and evaluates correct input and termination desire.
+        Starts user input and evaluates input and termination desire.
         :param s2t: Speech2Text sevice
         :param t2s: Text2Speech service
         :return: speech input (string) and termination desire (boolean).
