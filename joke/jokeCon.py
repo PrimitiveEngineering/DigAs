@@ -43,7 +43,11 @@ class JokeCon:
 
     def get_config(self):
         """
-        Description max
+        Reading the config file and writing parameters to class attributs
+        excpected:
+            global.username -> string
+            joke.times -> array
+            joke.blacklist -> array
         :return:
         """
 

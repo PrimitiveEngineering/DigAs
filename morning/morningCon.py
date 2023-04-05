@@ -35,7 +35,13 @@ class MorningCon:
 
     def get_config(self):
         """
-        Description max
+        Reading the config file and writing parameters to class attributs
+        excpected:
+            global.username -> string
+            morning.alarm -> string
+            morning.city -> string
+            morning.origin -> string
+            morning.destination -> string
         :return:
         """
 
