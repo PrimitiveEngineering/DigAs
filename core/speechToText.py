@@ -44,6 +44,7 @@ class _OfflineS2T(Speech2TextAbstract):
         # obtain audio from the microphone
         r = sr.Recognizer()
         with sr.Microphone() as source:
+            print("Calibrating...")
             r.adjust_for_ambient_noise(source)
             print("Say something!")
             audio = r.listen(source)
@@ -72,6 +73,7 @@ class _GoogleS2T(Speech2TextAbstract):
         # obtain audio from the microphone
         r = sr.Recognizer()
         with sr.Microphone() as source:
+            print("Calibrating...")
             r.adjust_for_ambient_noise(source)
             print("Say something!")
             audio = r.listen(source)
