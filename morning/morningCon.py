@@ -54,7 +54,7 @@ class MorningCon:
 
     def start_morning_routine(self):
         """
-        The morning routine
+        Runs the morning routine
         :return: none
         """
 
