@@ -30,7 +30,7 @@ class TestMorningCon(unittest.TestCase):
         self.assertEqual(correct_data_two, MC.get_travel_mode("bike"))
         self.assertEqual(correct_data_three, MC.get_travel_mode("walk"))
         self.assertEqual(correct_data_three, MC.get_travel_mode("foot"))
-        self.assertEqual(correct_data_four, MC.get_travel_mode("Umgardium Leviosa"))
+        self.assertEqual(correct_data_four, MC.get_travel_mode("Wingardium Leviosa"))
 
     def test_build_weather_announcement(self):
         correct_string = f"Good morning <say-as interpret-as=\"name\" format= \"undefined\">NAME</say-as>. " \
