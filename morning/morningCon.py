@@ -63,7 +63,7 @@ class MorningCon:
     def start_morning_routine(self):
         """
         Runs the morning routine
-        :return: none
+        :return:
         """
 
         self.get_config()
