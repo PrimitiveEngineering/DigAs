@@ -38,7 +38,7 @@ class TestGoogleMapsApi(TestCase):
         f = open('testResponse.json')
         data = json.load(f)
         f.close()
-        correct_string = "1 stunde 56 minuten"
+        correct_string = "1 hour 56 minutes"
         self.assertEqual(correct_string, GMA.get_duration(data))
 
     def test_getDistance(self):
