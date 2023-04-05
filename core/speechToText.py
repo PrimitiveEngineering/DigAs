@@ -44,11 +44,12 @@ class _OfflineS2T(Speech2TextAbstract):
         # obtain audio from the microphone
         r = sr.Recognizer()
         with sr.Microphone() as source:
+            print("Calibrating...")
+            r.adjust_for_ambient_noise(source)
             print("Say something!")
             audio = r.listen(source)
 
         # recognize speech using Sphinx
-        print("Sphinx:")
         try:
             output = r.recognize_sphinx(audio)
             return (output, True)
@@ -72,11 +73,12 @@ class _GoogleS2T(Speech2TextAbstract):
         # obtain audio from the microphone
         r = sr.Recognizer()
         with sr.Microphone() as source:
+            print("Calibrating...")
+            r.adjust_for_ambient_noise(source)
             print("Say something!")
             audio = r.listen(source)
 
         # recognize speech using Google Speech Recognition
-        print("Google:")
         try:
             output = r.recognize_google(audio)
             return (output, True)
