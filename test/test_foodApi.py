@@ -1,7 +1,7 @@
-""" test_main
-    * all basic-tests for Google-Maps-API are implemented here
+""" test_foodApi
+    * all basic-tests for food-API are implemented here
     author:     inf20086@lehre.dhbw-stuttgart.de
-    date:       22.03.2023
+    date:       05.04.2023
     version:    0.0.1
     license:    MIT
 """
@@ -12,16 +12,54 @@ FA = FoodApi()
 
 
 class TestFoodApi(unittest.TestCase):
-    # def test_food_api_find_by_ingredients_request(self):
-    #     FA.food_api_find_by_ingredients_request(["banana", "egg"])
-    #
-    # def test_food_api_random_request(self):
-    #     # self.assertEqual(True, False)  # add assertion here
 
-    # def test_extract_recipe_information(self):
-    #     correct_string = ('Tangy & Savory Mexican Soup', {'avocado': '1', 'carrots': '2', 'cilantro': '8 servings', 'garlic cloves': '6', 'ground beef': '907.185 grams', 'lime juice': '118.294 milliliters', 'oregano': '8 servings', 'bell peppers': '2', 'chili flakes': '0.5 teaspoons', 'onion': '1 large', 'sea salt & pepper': '8 servings', 'cream': '8 servings', 'tomato paste': '236.588 milliliters', 'tortilla chips': '8 servings', 'combination of water': '1.893 liters', 'zucchini': '3', 'cortido': '8 servings'}, ['Lightly brown beef or chicken, make sure there is still some pink. If you brown it too much it will taste "dry" in the soup.Bring stock to a boil with tomato paste/sauce. Stir in meat, garlic, chili flakes, zucchini, carrots, onions &amp; bell peppers. Simmer for about 15-30 minutes or till veggies are tender, but still slightly crunchy.', 'Add in lime juice and season to taste with oregano, rosemary, thyme, sea salt &amp; pepper.', 'Serve with garnishes.'])
-    #
-    #     self.assertEqual(correct_string,FA.extract_recipe_information(1))
+    def test_food_api_find_by_ingredients_request(self):
+        self.assertIsInstance(FA.food_api_find_by_ingredients_request(["banana","egg"]),tuple)
+        one, two, three = FA.food_api_find_by_ingredients_request(["banana","egg"])
+        self.assertIsInstance(two, dict)
+        self.assertIsInstance(three, list)
+
+    def test_food_api_random_request_type(self):
+        self.assertIsInstance(FA.food_api_random_request(),tuple)
+        one,two,three = FA.food_api_random_request()
+        self.assertIsInstance(two,dict)
+        self.assertIsInstance(three,list)
+
+    def test_extract_recipe_information(self):
+        correct_string = ('Fried Anchovies with Sage',
+                          {'anchovies': '453.592 grams',
+                           'baking powder': '1 teaspoon',
+                           'egg': '1',
+                           'flour': '236.588 milliliters',
+                           'sage': '1 leave',
+                           'salt': '1 teaspoon',
+                           'seltzer water': '3 servings',
+                           'vegetable oil': '3 servings'},
+                          ['If you have not tried anchovies before - you must try them now! Get over '
+                           'any weird apprehensions or that its just bait or a punchline for a joke '
+                           'about pizza ("extra anchovies")! These little suckers are delicious &amp; '
+                           'actually good for you!',
+                           'Baked, fried &amp; grilled - they are ohh so good and worth a try. If your '
+                           "not up to it, then pass me your plate because I love'em!Here is my favorite "
+                           '- Fried Anchovies - the recipe below adds a sage leave to each piece of '
+                           'fish as well for an extra burst of flavor &amp; color.Fried Anchovies with '
+                           'Sage',
+                           'Acciughe fritte con Salvia1lb of anchovies cleaned, spine removedsage '
+                           'leaves (optional - if you are not a fan of sage just omit)batter1 cup of '
+                           'flour1 egg1 teaspoon of salt1 teaspoon of baking powderseltzer '
+                           'watervegetable oil for frying',
+                           'In a bowl combine flour, eggs, salt &amp; baking powder. Slowly add in '
+                           'seltzer water &amp; mix until forms a thin batter. Cover with plastic &amp; '
+                           'set in the fridge for at least an hour.',
+                           'Heat oil in a pot to 350 degree.',
+                           'Remove batter from fridge and mix once or twice (batter will have '
+                           'separated).Take a sage leaf &amp; anchovy put them together &amp; dip into '
+                           'the batter - allowing access batter to drip off.Fry 20 seconds a side until '
+                           'golden brown.',
+                           'Remove from oil &amp; drain on a paper towel.',
+                           'Sprinkle with salt &amp; serve immediately.Pairs great with prosecco or '
+                           'white wine.'])
+        self.assertEqual(correct_string, FA.extract_recipe_information(1))
 
     def test_convert_ingredient_list_to_csv(self):
         correct_string = "banana,egg"
@@ -144,3 +182,11 @@ class TestFoodApi(unittest.TestCase):
         correct_number = 42.69
         float_number = 42.69
         self.assertEqual(correct_number, FA.convert_float_to_int_if_valid(float_number))
+
+
+class MockResponse:
+    def __init__(self, json_data):
+        self.json_data = json_data
+
+    def json(self):
+        return self.json_data
