@@ -2,6 +2,7 @@ from morning.weatherApi import OpenWeather
 from morning.googleMapsApi import GoogleMapsApi
 from core.util import Speech2TextUtil
 import schedule
+import yaml
 
 
 class MorningCon:
@@ -9,7 +10,7 @@ class MorningCon:
     __t2s = None
     __s2t = None
 
-    __user_name = "Richard"
+    __username = "Richard"
     __time_alarm = "10:00"
     __city = "Stuttgart"
     __origin = "Gropiusplatz 9 Stuttgart"
@@ -38,19 +39,20 @@ class MorningCon:
         :return:
         """
 
-        schedule.every().day.at(self.__time_alarm).do(self.start_morning_routine).tag("morning_routine")  # Delete this line after config part has been implemented
-        # old_time_alarm = self.__time_alarm
-        # TODO: CONFIG-Ablauf
-        # self.__user_name =
-        # self.__time_alarm =
-        # self.__city =
-        # self.__origin =
-        # self.__destination =
-        #
-        # # Reset time of alarm
-        # if old_time_alarm != self.__time_alarm:
-        #     schedule.clear("morning_routine")
-        #     schedule.every().day.at(self.__time_alarm).do(self.start_morning_routine).tag("morning_routine")
+        old_time_alarm = self.__time_alarm
+        with open("../config.yaml", "r") as file:
+            yaml_config = yaml.safe_load(file)
+
+        self.__username = yaml_config["global"]["username"]
+        self.__time_alarm = yaml_config["morning"]["alarm"]
+        self.__city = yaml_config["morning"]["city"]
+        self.__origin = yaml_config["morning"]["origin"]
+        self.__destination = yaml_config["morning"]["destination"]
+
+        # Reset time of alarm
+        if old_time_alarm != self.__time_alarm:
+            schedule.clear("morning_routine")
+            schedule.every().day.at(self.__time_alarm).do(self.start_morning_routine).tag("morning_routine")
 
     def start_morning_routine(self):
         """
@@ -64,7 +66,7 @@ class MorningCon:
 
         self.__t2s.trigger(
             self.build_weather_announcement(
-                self.__user_name,
+                self.__username,
                 self.__time_alarm,
                 weather["description"],
                 weather["temp"],

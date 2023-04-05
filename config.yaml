@@ -1,11 +1,11 @@
 global:
-  username: "Richard"
+  username: "Not Richard"
 
 morning:
-  alarm: "10:00"
-  city: "Stuttgart"
-  origin: "Gropiusplatz 9 Stuttgart"
-  destination: "DHBW Fakultät Technik Stuttgart"
+  alarm: "11:00"
+  city: "Malmsheim"
+  origin: "Weil der Stadt"
+  destination: "Malmsheim"
 
 joke:
   times:
