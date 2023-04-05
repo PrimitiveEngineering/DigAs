@@ -1,0 +1,22 @@
+global:
+  username: "Richard"
+
+morning:
+  alarm: "10:00"
+  city: "Stuttgart"
+  origin: "Gropiusplatz 9 Stuttgart"
+  destination: "DHBW Fakultät Technik Stuttgart"
+
+joke:
+  times:
+    - "10:15"
+    - "16:23"
+    - "17:30"
+    - "20:30"
+  blacklist:
+    - "nsfw"
+    - "religious"
+    - "political"
+    - "racist"
+    - "sexist"
+    - "explicit"
