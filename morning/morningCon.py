@@ -3,6 +3,7 @@ from morning.googleMapsApi import GoogleMapsApi
 from core.util import Speech2TextUtil
 import schedule
 import yaml
+import os
 
 
 class MorningCon:
@@ -46,7 +47,7 @@ class MorningCon:
         """
 
         old_time_alarm = self.__time_alarm
-        with open("../config.yaml", "r") as file:
+        with open(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'config.yaml')), "r") as file:
             yaml_config = yaml.safe_load(file)
 
         self.__username = yaml_config["global"]["username"]

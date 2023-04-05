@@ -5,8 +5,9 @@ from core.util import Speech2TextUtil
 import schedule
 import yaml
 import numpy as np
+import os
 
-from datetime import datetime
+# from datetime import datetime
 
 
 class JokeCon:
@@ -53,7 +54,7 @@ class JokeCon:
 
         old_times = self.__times_start
 
-        with open("../config.yaml", "r") as file:
+        with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'config.yaml')), "r") as file:
             yaml_config = yaml.safe_load(file)
 
         self.__username = yaml_config["global"]["username"]
@@ -151,7 +152,7 @@ class JokeCon:
 
         return f"Hey <say-as interpret-as=\"name\" format= \"undefined\">{name}</say-as>. " \
                f"Would you like to hear a joke to lighten the mood? " \
-               f"Or an inspiring quote  or an fortune cookie reading? "
+               f"Or an inspiring quote or an fortune cookie reading? "
 
     def build_quote_announcement(self, quote, author):
         """
@@ -163,7 +164,7 @@ class JokeCon:
 
         return f"The quote i got for you is by <say-as interpret-as=\"name\" format= \"undefined\">{author}</say-as>. " \
                f"It goes as follows: " \
-               f"<break strength=\"strong\" />{quote}."
+               f"<break strength=\"strong\" />{quote}"
 
     def build_joke_announcement(self, joke):
         """
@@ -173,7 +174,7 @@ class JokeCon:
         """
 
         return f"The joke i got for you is: " \
-               f"<break strength=\"strong\" />{joke}."
+               f"<break strength=\"strong\" />{joke}"
 
     def build_fortune_cookie_announcement(self, reading):
         """
@@ -183,4 +184,4 @@ class JokeCon:
         """
 
         return f"Your fortune cookie reads: " \
-               f"<break strength=\"strong\" />{reading}."
+               f"<break strength=\"strong\" />{reading}"
