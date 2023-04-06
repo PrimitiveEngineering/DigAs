@@ -32,6 +32,7 @@ class MorningCon:
 
         self.__t2s = t2s
         self.__s2t = s2t
+        schedule.every().day.at(self.__time_alarm).do(self.start_morning_routine).tag("morning_routine")
         self.get_config()
 
     def get_config(self):

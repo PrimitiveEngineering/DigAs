@@ -7,6 +7,7 @@ import yaml
 import numpy as np
 import os
 
+
 # from datetime import datetime
 
 
@@ -34,6 +35,7 @@ class JokeCon:
 
         self.__t2s = t2s
         self.__s2t = s2t
+        schedule.every().day.at("00:00").do(self.start_joke_routine).tag("joke_routine")
         self.get_config()
 
         # Schedule a job for the next minute DEBUG
@@ -54,7 +56,7 @@ class JokeCon:
 
         old_times = self.__times_start
 
-        with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'config.yaml')), "r") as file:
+        with open(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'config.yaml')), "r") as file:
             yaml_config = yaml.safe_load(file)
 
         self.__username = yaml_config["global"]["username"]
@@ -65,7 +67,6 @@ class JokeCon:
         if not np.array_equiv(old_times, self.__times_start):
             schedule.clear("joke_routine")
             for time_start in self.__times_start:
-                print(time_start)
                 schedule.every().day.at(time_start).do(self.start_joke_routine).tag("joke_routine")
 
     def start_joke_routine(self):
