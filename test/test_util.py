@@ -21,6 +21,6 @@ class TestUtil(unittest.TestCase):
         self.assertEqual(correct_statement, S2TU.user_termination_desired("We love to cancel Bing Chilling"))
         self.assertEqual(correct_statement, S2TU.user_termination_desired("We love to terminate Bing Chilling"))
 
-    def test_user_termination_desired_true(self):
+    def test_user_termination_desired_false(self):
         correct_statement = False
         self.assertEqual(correct_statement, S2TU.user_termination_desired("Cancer"))
