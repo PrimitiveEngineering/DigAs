@@ -153,7 +153,7 @@ class JokeCon:
 
         return f"Hey <say-as interpret-as=\"name\" format= \"undefined\">{name}</say-as>. " \
                f"Would you like to hear a joke to lighten the mood? " \
-               f"Or an inspiring quote or an fortune cookie reading? "
+               f"Or an inspiring quote or a fortune cookie reading? "
 
     def build_quote_announcement(self, quote, author):
         """
