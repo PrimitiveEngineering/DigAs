@@ -7,7 +7,7 @@
 """
 
 from unittest import TestCase
-from morning.weatherApi import OpenWeather
+from morning.weatherApi import OpenWeather, OpenWeatherCityNotFound
 from unittest.mock import patch
 
 OW = OpenWeather()
@@ -27,6 +27,10 @@ class TestWeatherApi(TestCase):
 
             # Check the response
             self.assertEqual(result, {'description': 'sunny', 'feels_like': 21.9, 'max_temp': 31.9, 'temp': 26.9})
+
+    def test_get_weather_valid_city_exception(self):
+        with self.assertRaises(OpenWeatherCityNotFound):
+            OW.get_weather("UIABSCINOVNIDCBAOCNONACP")
 
     def test_kelvin_to_celsius(self):
         correct_value = 0
