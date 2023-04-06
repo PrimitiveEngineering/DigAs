@@ -14,13 +14,13 @@ FA = FoodApi()
 class TestFoodApi(unittest.TestCase):
 
     def test_food_api_find_by_ingredients_request(self):
-        self.assertIsInstance(FA.food_api_find_by_ingredients_request(["banana","egg"]),tuple)
-        one, two, three = FA.food_api_find_by_ingredients_request(["banana","egg"])
+        self.assertIsInstance(FA.food_api_find_by_ingredients_request(["banana", "egg"]), tuple)
+        one, two, three = FA.food_api_find_by_ingredients_request(["banana", "egg"])
         self.assertIsInstance(two, dict)
         self.assertIsInstance(three, list)
 
     def test_food_api_random_request_type(self):
-        self.assertIsInstance(FA.food_api_random_request(),tuple)
+        self.assertIsInstance(FA.food_api_random_request(), tuple)
         one,two,three = FA.food_api_random_request()
         self.assertIsInstance(two,dict)
         self.assertIsInstance(three,list)

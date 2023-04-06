@@ -34,6 +34,7 @@ class JokeCon:
 
         self.__t2s = t2s
         self.__s2t = s2t
+        schedule.every().day.at("00:00").do(self.start_joke_routine).tag("joke_routine")
         self.get_config()
 
         # Schedule a job for the next minute DEBUG

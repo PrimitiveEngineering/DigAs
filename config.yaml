@@ -2,14 +2,14 @@ global:
   username: "Daniel"
 
 morning:
-  alarm: "11:00"
-  city: "Malmsheim"
-  origin: "Weil der Stadt"
-  destination: "Malmsheim"
+  alarm: "12:50"
+  city: "Stuttgart"
+  origin: "Gropiusplatz 5 Stuttgart"
+  destination: "DHBW Fakultät Technik Stuttgart"
 
 joke:
   times:
-    - "10:15"
+    - "12:53"
     - "16:23"
     - "17:30"
     - "19:21"
