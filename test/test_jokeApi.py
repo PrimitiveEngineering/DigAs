@@ -9,7 +9,8 @@
 import unittest
 import json
 from unittest.mock import patch, Mock
-from joke.jokeApi import JokeApi
+from joke.jokeApi import JokeApi, JokeApiBlacklistOptionNotFound
+
 
 JA = JokeApi()
 
@@ -22,9 +23,13 @@ class TestJokeApi(unittest.TestCase):
         correct_string = "Excuse me. Are you the Judean People’s Front? - F*** off! ‘Judean People’s Front’?. We’re the People’s Front of Judea!"
         self.assertEqual(correct_string, JA.get_joke(json_data))
 
-    def test_get_blacklist_string(self):
+    def test_get_blacklist_string_true(self):
         correct_string = "&blacklistFlags=religious,sexist"
         self.assertEqual(correct_string, JA.get_blacklist_string(["religious", "sexist"]))
+
+        with self.assertRaises(JokeApiBlacklistOptionNotFound):
+            self.assertEqual(correct_string, JA.get_blacklist_string(["religious", "sex"]))
+
 
     def test_joke_api_request_type(self):
         self.assertIsInstance(JA.joke_api_request(), str)
