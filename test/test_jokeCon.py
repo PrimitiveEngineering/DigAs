@@ -28,21 +28,21 @@ class TestMorningCon(unittest.TestCase):
     def test_build_joke_starting_announcement(self):
         correct_data = f"Hey <say-as interpret-as=\"name\" format= \"undefined\">Bob</say-as>. " \
                        f"Would you like to hear a joke to lighten the mood? " \
-                       f"Or an inspiring quote  or an fortune cookie reading? "
+                       f"Or an inspiring quote or an fortune cookie reading? "
         self.assertEqual(correct_data, JC.build_joke_starting_announcement("Bob"))
 
     def test_build_quote_announcement(self):
         correct_data = f"The quote i got for you is by <say-as interpret-as=\"name\" format= \"undefined\">Albert Einstein</say-as>. " \
                        f"It goes as follows: " \
-                       f"<break strength=\"strong\" />if she aint got the drip, she get no xxx."
+                       f"<break strength=\"strong\" />if she aint got the drip, she get no xxx"
         self.assertEqual(correct_data, JC.build_quote_announcement("if she aint got the drip, she get no xxx", "Albert Einstein"))
 
     def test_build_joke_announcement(self):
         correct_data = f"The joke i got for you is: " \
-                       f"<break strength=\"strong\" />Testing."
+                       f"<break strength=\"strong\" />Testing"
         self.assertEqual(correct_data, JC.build_joke_announcement("Testing"))
 
     def test_build_fortune_cookie_announcement(self):
         correct_data = f"Your fortune cookie reads: " \
-                       f"<break strength=\"strong\" />If youre small now, dont worry - cause it wont make you grow."
+                       f"<break strength=\"strong\" />If youre small now, dont worry - cause it wont make you grow"
         self.assertEqual(correct_data, JC.build_fortune_cookie_announcement("If youre small now, dont worry - cause it wont make you grow"))

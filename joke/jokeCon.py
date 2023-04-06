@@ -65,7 +65,6 @@ class JokeCon:
         if not np.array_equiv(old_times, self.__times_start):
             schedule.clear("joke_routine")
             for time_start in self.__times_start:
-                print(time_start)
                 schedule.every().day.at(time_start).do(self.start_joke_routine).tag("joke_routine")
 
     def start_joke_routine(self):

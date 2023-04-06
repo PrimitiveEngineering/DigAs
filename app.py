@@ -8,7 +8,7 @@ from joke.jokeCon import JokeCon
 
 def main():
     # Init core components
-    t2s = Text2SpeechService("offline")
+    t2s = Text2SpeechService("azure")
     s2t = Speech2TextService("google")
 
     # Init use case controller

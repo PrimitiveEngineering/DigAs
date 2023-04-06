@@ -1,5 +1,5 @@
 global:
-  username: "Not Richard"
+  username: "Daniel"
 
 morning:
   alarm: "11:00"
@@ -12,7 +12,7 @@ joke:
     - "10:15"
     - "16:23"
     - "17:30"
-    - "20:30"
+    - "19:21"
   blacklist:
     - "nsfw"
     - "religious"
