@@ -1,79 +1,53 @@
-from requests.auth import HTTPBasicAuth
-import requests
-import json
 import os
 from dotenv import load_dotenv, find_dotenv
-
 import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy.oauth2 import SpotifyOAuth
 
 
 class MusicApi:
+    """
+    Music API that useses Spotify API to search and play tracks to local devices
+    """
 
-    payload = {
-        'grant_type': 'client_credentials'
-    }
+    scope = 'user-modify-playback-state'
+    redirect_uri = 'http://example.com'
 
     def __init__(self):
         load_dotenv(find_dotenv())
-        os.environ['SPOTIPY_CLIENT_ID'] = os.getenv('SPOTIFY_CLIENT_ID')
-        os.environ['SPOTIPY_CLIENT_SECRET'] = os.getenv('SPOTIFY_CLIENT_SECRET')
-        os.environ['SPOTIPY_REDIRECT_URI'] = 'google.com'
-        self.__token_url = 'https://accounts.spotify.com/api/token'
-        self.__search_url = 'https://api.spotify.com/v1/search'
-        self.__play_url = 'https://api.spotify.com/v1/me/player/play'
         self.client_id = os.getenv('SPOTIFY_CLIENT_ID')
         self.client_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
-        self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth())
+        self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=self.scope,
+                                                            redirect_uri=self.redirect_uri,
+                                                            client_id=os.getenv('SPOTIFY_CLIENT_ID'),
+                                                            client_secret=os.getenv('SPOTIFY_CLIENT_SECRET')))
 
+    def play_requested_song(self, song_title, artist=None):
+        """
+        Searches for requested song and plays it on the local Spotify application
 
+        Arguments:
+        - song_title    (required)
+        - artist        (optional)
 
-    def play_requested_song(self, song_title):
+        Returns:
+        - None
+        """
+        requested_song = self.build_requested_song_string(song_title, artist)
+        song_uri = self.search_song_uri(requested_song)
+        self.start_song(song_uri)
 
-        access_token = self.fetch_access_token()
-        url = self.__search_url + '?type=track&market=DE&limit=1&q=' + str(song_title)
-        response = requests.request("GET", url, headers={'Authorization': 'Bearer ' + access_token}, data={})
-        response_json = json.loads(response.text)
+    def search_song_uri(self, requested_song):
+        response = self.sp.search(q=requested_song, limit=1, offset=0, type='track', market='DE')
+        song_uri = response['tracks']['items'][0]['uri']
 
-        song_uri = response_json['tracks']['items'][0]['album']['uri']
+        return song_uri
 
-        print(song_uri)
-        print(access_token)
-        self.start_song(song_uri, access_token)
+    def build_requested_song_string(self, song_title, artist):
+        requested_song = song_title
+        if artist is not None:
+            requested_song += ' artist:' + artist
 
-    def start_song(self, song_uri, access_token):
+        return requested_song
 
-        self.sp.start_playback(device_id='23ad0f9f001a35de73dc515625fdb157e2fca6bf', uris=[str(song_uri)])
-        #url = self.__play_url + '?device_id=23ad0f9f001a35de73dc515625fdb157e2fca6bf'
-        #response = requests.put(url, headers={'Authorization': 'Bearer ' + access_token}, data={"uris": [str(song_uri)]})
-        #print(response.text)
-
-    def fetch_access_token(self):
-
-        response = requests.post(self.__token_url, auth=HTTPBasicAuth(self.client_id, self.client_secret), data=self.payload)
-        response_json = json.loads(response.text)
-        access_token = response_json['access_token']
-
-        return access_token
-
-
-
-
-
-
-
-    def music_api_request(self):
-
-        response = self.sp.search(q='why do you love me', limit=1, market='DE')
-
-        print(response)
-
-        for idx, item in enumerate(response['tracks']['items']):
-            print(idx, item['artists'][0]['name'], " – ", item['name'])
-
-
-
-a = MusicApi()
-
-a.play_requested_song('The fox')
+    def start_song(self, song_uri):
+        self.sp.start_playback(uris=[str(song_uri)])
