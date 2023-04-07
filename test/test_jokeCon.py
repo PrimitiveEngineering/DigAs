@@ -28,7 +28,7 @@ class TestMorningCon(unittest.TestCase):
     def test_build_joke_starting_announcement(self):
         correct_data = f"Hey <say-as interpret-as=\"name\" format= \"undefined\">Bob</say-as>. " \
                        f"Would you like to hear a joke to lighten the mood? " \
-                       f"Or an inspiring quote or an fortune cookie reading? "
+                       f"Or an inspiring quote or a fortune cookie reading? "
         self.assertEqual(correct_data, JC.build_joke_starting_announcement("Bob"))
 
     def test_build_quote_announcement(self):
