@@ -34,8 +34,8 @@ class RandomSongPicker:
         artist = self.pick_random_artist(artist_list)
         url = self.url + artist + '\"'
         response = requests.request("GET", url, headers=self.headers, data=self.payload)
-        responseJson = json.loads(response.text)
-        all_songs = responseJson['data']
+        response_json = json.loads(response.text)
+        all_songs = response_json['data']
         song = self.pick_random_song(all_songs)
 
         return song['title'], artist
