@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import logging
 import pyttsx3
 import azure.cognitiveservices.speech as speechsdk
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 import os
 import re
 
@@ -78,7 +78,7 @@ class _AzureT2S(Text2SpeechAbstract):
     """
 
     def __init__(self):
-        load_dotenv()
+        load_dotenv(find_dotenv())
         self.__speech_key = os.getenv('SPEECH_KEY')
         self.__service_region = os.getenv('SERVICE_REGION')
         self.voice = "en-US-JennyMultilingualNeural"
@@ -168,10 +168,18 @@ class Text2SpeechService:
         self.__t2s_abstract = Text2SpeechFactory(mode)
 
     def trigger(self, text, ssml):
+        offline_t2s = Text2SpeechFactory("offline")
         try:
+            # DEBUG
+            cleared_text = text
+            if ssml:
+                cleared_text = offline_t2s.remove_ssml(text)
+            print(cleared_text)
+            # DEBUG END
+
             self.__t2s_abstract.trigger(text, ssml)
         except OnlineT2SnotAvailable:
-            fallback_t2s = Text2SpeechFactory("offline")
+            offline_t2s_t2s = Text2SpeechFactory("offline")
             if ssml:
-                text = fallback_t2s.remove_ssml(text)
-            fallback_t2s.trigger(text, False)
+                text = offline_t2s.remove_ssml(text)
+            offline_t2s.trigger(text, False)

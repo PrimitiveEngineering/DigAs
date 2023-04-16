@@ -1,7 +1,7 @@
 import requests
 import json
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 import time
 from datetime import timezone
 
@@ -18,7 +18,7 @@ class GoogleMapsApi:
     """
 
     def __init__(self):
-        load_dotenv()
+        load_dotenv(find_dotenv())
         self.__base_url = 'https://maps.googleapis.com/maps/api/distancematrix/json?key=' + os.getenv('GOOGLE_API_KEY')
 
     available_travel_modes = [
@@ -29,9 +29,7 @@ class GoogleMapsApi:
     ]
 
     duration_dictionary = {
-        'hours': 'stunden',
-        'hour': 'stunde',
-        'mins': 'minuten',
+        'mins': 'minutes',
         'min': 'minute'
     }
 
@@ -61,9 +59,6 @@ class GoogleMapsApi:
 
         response = requests.request("GET", url, headers=self.headers, data=self.payload)
         response_json = json.loads(response.text)
-
-        print(response.text)
-
         if return_strings_only:
             return self.get_distance(response_json), self.get_duration(response_json)
         else:
@@ -112,9 +107,9 @@ class GoogleMapsApi:
     def get_duration(self, response_json):
         duration = response_json['rows'][0]['elements'][0]['duration']['text']
 
-        for english, german in self.duration_dictionary.items():
-            if 'minuten' not in duration:
-                duration = duration.replace(english, german)
+        for abbreviation, replacement in self.duration_dictionary.items():
+            if 'minutes' not in duration:
+                duration = duration.replace(abbreviation, replacement)
 
         return duration
 

@@ -1,13 +1,14 @@
 import requests
 import json
 
+
 class JokeApiBlacklistOptionNotFound(Exception):
     """
     Is raised when a blacklist option is not found
     """
 
-class JokeApi:
 
+class JokeApi:
     blacklist_options = [
         'nsfw',
         'religious',
@@ -20,7 +21,7 @@ class JokeApi:
     payload = {}
     headers = {}
 
-    def jokeApiRequest(self, blacklist=None):
+    def joke_api_request(self, blacklist=None):
         """
             Joke API
 
@@ -33,36 +34,36 @@ class JokeApi:
 
         url = 'https://v2.jokeapi.dev/joke/Any?type=single'
 
-        blacklistString = self.getBlacklistString(blacklist)
+        blacklist_string = self.get_blacklist_string(blacklist)
 
-        url += blacklistString
+        url += blacklist_string
 
         response = requests.request("GET", url, headers=self.headers, data=self.payload)
 
-        responseJson = json.loads(response.text)
+        response_json = json.loads(response.text)
 
-        return self.getJoke(responseJson)
-    
+        return self.get_joke(response_json)
 
-    def getBlacklistString(self, blacklist):
+    def get_blacklist_string(self, blacklist):
 
         if blacklist is None:
             return ''
 
-        blacklistString = '&blacklistFlags='
+
+        blacklist_string = '&blacklistFlags='
+
 
         for bl in blacklist:
             if bl not in self.blacklist_options:
                 raise JokeApiBlacklistOptionNotFound(f'Blacklist option {bl} not an available option')
 
-        blacklistString += ','.join(blacklist)
+        blacklist_string += ','.join(blacklist)
 
-        return blacklistString
+        return blacklist_string
 
+    def get_joke(self, json):
 
-    def getJoke(self, json):
-
-        jokeRaw = json['joke']
-        joke = jokeRaw.replace('\n', '')
+        joke_raw = json['joke']
+        joke = joke_raw.replace('\n', '')
 
         return joke

@@ -1,0 +1,22 @@
+global:
+  username: "Not Richard"
+
+morning:
+  alarm: "11:00"
+  city: "Malmsheim"
+  origin: "Weil der Stadt"
+  destination: "Malmsheim"
+
+joke:
+  times:
+    - "10:15"
+    - "16:23"
+    - "17:30"
+    - "20:30"
+  blacklist:
+    - "nsfw"
+    - "religious"
+    - "political"
+    - "racist"
+    - "sexist"
+    - "explicit"

@@ -6,7 +6,7 @@ class QuoteApi:
     payload = {}
     headers = {}
 
-    def quoteApiRequest(self):
+    def quote_api_request(self):
         """
             Quote API
 
@@ -21,12 +21,12 @@ class QuoteApi:
         url = 'https://api.quotable.io/random'
 
         response = requests.request("GET", url, headers=self.headers, data=self.payload)
-        responseJson = json.loads(response.text)
-
-        return self.getContent(responseJson), self.getAuthor(responseJson)
-
-    def getContent(self, json):
+        response_json = json.loads(response.text)
+        
+        return self.get_content(response_json), self.get_author(response_json)
+    
+    def get_content(self, json):
         return json['content']
 
-    def getAuthor(self, json):
+    def get_author(self, json):
         return json['author']
