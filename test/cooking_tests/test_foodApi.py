@@ -183,10 +183,3 @@ class TestFoodApi(unittest.TestCase):
         float_number = 42.69
         self.assertEqual(correct_number, FA.convert_float_to_int_if_valid(float_number))
 
-
-class MockResponse:
-    def __init__(self, json_data):
-        self.json_data = json_data
-
-    def json(self):
-        return self.json_data
