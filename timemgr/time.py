@@ -26,14 +26,14 @@ class Time:
         return now.strftime(date_format)
 
     @staticmethod
-    def get_current_date_time():
+    def get_current_date_time(date_time_format="%Y/%m/%d %H:%M"):
         """
-        Returns the current date and time in YYYY/MM/DD HH:MM
-        :return: YYYY/MM/DD HH:MM (string)
+        Returns the current date and time: standard YYYY/MM/DD HH:MM
+        :return: current date time (string)
         """
 
         now = datetime.datetime.now()
-        return now.strftime("%Y/%m/%d %H:%M")
+        return now.strftime(date_time_format)
 
     @staticmethod
     def change_date_format_t2s(date, date_format):
