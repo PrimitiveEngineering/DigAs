@@ -153,8 +153,3 @@ class ScheduleUtil:
                 job_overlap = True
 
         return job_overlap
-
-    def print_job(self):
-        jobs = schedule.get_jobs()
-        for job in jobs:
-            print(job.next_run)
