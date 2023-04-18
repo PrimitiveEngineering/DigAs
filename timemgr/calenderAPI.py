@@ -2,25 +2,28 @@ from gcsa.event import Event
 from gcsa.google_calendar import GoogleCalendar
 from gcsa.recurrence import Recurrence, DAILY, SU, SA
 
-from beautiful_date import Jan, Apr
+from beautiful_date import *
 
+class calenderAPI:
 
-calendar = GoogleCalendar('primitiveengineeringdhbw@gmail.com',credentials_path='./client_secret_1007758535570-mbta1dpade6r2sdqs2lhlkcgft2qamma.apps.googleusercontent.com.json')
-event = Event(
-    'Breakfast',
-    start=(1 / Jan / 2023)[9:00],
-    recurrence=[
-        Recurrence.rule(freq=DAILY),
-        Recurrence.exclude_rule(by_week_day=[SU, SA]),
-        Recurrence.exclude_times([
-            (19 / Apr / 2023)[9:00],
-            (22 / Apr / 2023)[9:00]
-        ])
-    ],
-    minutes_before_email_reminder=50
-)
+    def __init__(self):
+        self.calendar = GoogleCalendar('primitiveengineeringdhbw@gmail.com',
+                                  credentials_path='./client_secret_1007758535570-mbta1dpade6r2sdqs2lhlkcgft2qamma.apps.googleusercontent.com.json')
 
-calendar.add_event(event)
+    def print_events(self):
+        for event in self.calendar:
+            print(event)
 
-for event in calendar:
-    print(event)
+    def print_events(self, start, end):
+        for event in self.calendar.get_events(start, end, order_by='startTime'):
+            print(event)
+
+    def create_event(self, name, start, end):
+        event = Event(name, start, end)
+        self.calendar.add_event(event)
+
+    def get_events(self, start, end):
+        return self.calendar.get_events(start, end, order_by='startTime')
+
+    def get_events_now(self):
+        return self.calendar.get_events(D.now(), order_by='startTime')
