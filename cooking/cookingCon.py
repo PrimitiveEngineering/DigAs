@@ -34,6 +34,9 @@ class CookingCon:
 
         self.__t2s = t2s
         self.__s2t = s2t
+        self.music_api = MusicApi()
+        self.random_song_picker = RandomSongPicker()
+        self.food_api = FoodApi()
         schedule.every().day.at("00:00").do(self.start_cooking_routine).tag("cooking_routine")
         self.get_config()
 
@@ -156,25 +159,22 @@ class CookingCon:
         :param user_input: The requested music
         """
 
-        music_api = MusicApi()
-        random_song_picker = RandomSongPicker()
-
         if music_type == "nothing":
             self.__t2s.trigger('Alright. ', True)
         elif music_type == "random":
-            title, artist = random_song_picker.random_song_picker_request(self.__artist)
+            title, artist = self.random_song_picker.random_song_picker_request(self.__artist)
             self.__t2s.trigger(
                 self.build_random_music_announcement(
                     title,
                     artist),
                 True)
-            music_api.play_requested_song(title, artist)
+            self.music_api.play_requested_song(title, artist)
         else:
             self.__t2s.trigger(
                 self.build_chosen_music_announcement(
                     user_input),
                 True)
-            music_api.play_requested_song(user_input)
+            self.music_api.play_requested_song(user_input)
 
     def build_chosen_music_announcement(self, title):
         """
@@ -203,12 +203,10 @@ class CookingCon:
         :param user_input: The requested recipe if "recipe" was chosen
         """
 
-        food_api = FoodApi()
-
         if recipe_type == "nothing":
             self.__t2s.trigger('Alright. ', True)
         elif recipe_type == "recipe":
-            name, ingredients, steps = food_api.food_api_random_request()
+            name, ingredients, steps = self.food_api.food_api_random_request()
 
             self.__t2s.trigger(
                 self.build_recipe_announcement(
@@ -217,7 +215,7 @@ class CookingCon:
                     steps),
                 True)
         else:
-            name, ingredients, steps = food_api.food_api_find_by_ingredients_request(
+            name, ingredients, steps = self.food_api.food_api_find_by_ingredients_request(
                 self.user_input_to_ingredient_list(user_input))
             self.__t2s.trigger(
                 self.build_ingredients_announcement(
