@@ -22,4 +22,4 @@ joke:
     - "explicit"
 
 time:
-  reminder_time: "20"
+  reminder_time: 20

@@ -16,7 +16,7 @@ class CalenderAPI:
 
     def __init__(self):
         self.calendar = GoogleCalendar('primitiveengineeringdhbw@gmail.com',
-                                  credentials_path='./client_secret_1007758535570-mbta1dpade6r2sdqs2lhlkcgft2qamma.apps.googleusercontent.com.json')
+                                       credentials_path='./client_secret_1007758535570-mbta1dpade6r2sdqs2lhlkcgft2qamma.apps.googleusercontent.com.json')
 
     def print_events(self):
         for event in self.calendar:

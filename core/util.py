@@ -40,3 +40,18 @@ class Speech2TextUtil:
             return (None, True)
 
         return (user_input, False)
+
+    def contains_word(self,sentence, words):
+
+        sentence = sentence.upper()
+
+        sentence_split = sentence.split();
+
+        for word in words:
+            for sentence_word in sentence_split:
+
+                if (sentence_word == word):
+                    return True;
+
+        return False;
+

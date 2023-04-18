@@ -36,6 +36,15 @@ class Time:
         return now.strftime(date_time_format)
 
     @staticmethod
+    def change_time_format(date_time):
+        """
+        Returns the time in the format HH:MM
+        :param date: date_time (string)
+        :return: YYYY/MM/DD (string)
+        """
+        date_obj = datetime.datetime.strptime(date_time, "%Y/%m/%d %H:%M:%S")
+        return date_obj.strftime('%H:%M')
+    @staticmethod
     def change_date_format_t2s(date, date_format):
         """
         Returns the date in the S2T format YYYY/MM/DD

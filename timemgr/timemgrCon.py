@@ -1,5 +1,7 @@
 from timemgr.calenderAPI import CalenderAPI
+from timemgr.time import Time
 from core.util import Speech2TextUtil
+from datetime import datetime, timedelta
 import schedule
 import yaml
 import numpy as np
@@ -36,6 +38,7 @@ class TimemgrCon:
         self.__calendar = CalenderAPI()
 
         self.get_config()
+        self.create_jobs(self.__reminder_time)
 
     def get_config(self):
         """
@@ -52,12 +55,14 @@ class TimemgrCon:
         self.__username = yaml_config["global"]["username"]
         self.__reminder_time = yaml_config["time"]["reminder_time"]
 
-    def create_jobs(self):
+    def create_jobs(self, reminder_time):
         events = self.__calendar.get_events_24h()
         for event in events:
-            event_start = event.start
-            job_time =
-            schedule.every().day.at(job_time).do(self.scheduleWrapper(self.start_timemanager_routine, event.event_id)).tag("meeting")
+            event_start = event.start - reminder_time * minutes
+            print(event_start)
+            job_time = Time.change_time_format(event_start.strftime("%Y/%m/%d %H:%M:%S"))
+            schedule.every().day.at(job_time).do(self.start_timemanager_routine, event_id=event.event_id).\
+                tag("meeting")
 
 
     def start_timemanager_routine(self, event_id=None):
@@ -84,14 +89,17 @@ class TimemgrCon:
         response_type = self.get_response_type(user_input)
         self.run_user_choice(response_type, self.__calendar.get_event_id(event_id))
 
+        return schedule.CancelJob
+
     def get_response_type(self, user_input):
         """
         Response type decider
         :param user_input: s2t user input as text
         :return: response_type
         """
-
-        if any(element in user_input for element in ["not", "dont", "don't", "already", "no"]):
+        if Speech2TextUtil().contains_word(user_input, ["know", "more"]):
+            response_type = "yes"
+        elif Speech2TextUtil().contains_word(user_input, ["not", "dont", "don't", "already", "no"]):
             response_type = "no"
         else:
             response_type = "yes"
@@ -156,7 +164,3 @@ class TimemgrCon:
                 text += f"Your description reads: {event_description}"
 
         return text
-
-    def scheduleWrapper(self, func):
-        func()
-        return schedule.CancelJob
