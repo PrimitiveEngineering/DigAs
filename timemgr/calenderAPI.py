@@ -16,7 +16,7 @@ class CalenderAPI:
 
     def __init__(self):
         self.calendar = GoogleCalendar('primitiveengineeringdhbw@gmail.com',
-                                       credentials_path='./client_secret_1007758535570-mbta1dpade6r2sdqs2lhlkcgft2qamma.apps.googleusercontent.com.json')
+                                       credentials_path='./google_secret.json')
 
     def print_events(self):
         for event in self.calendar:
@@ -42,6 +42,7 @@ class CalenderAPI:
         for event in self.calendar.get_events(D.now(), D.now() + 1 * days, order_by='startTime', single_events=True):
             times.append((event.start, event.end))
         return times
+
     def get_events(self, start, end):
         return list(self.calendar.get_events(start, end, order_by='startTime', single_events=True))
 

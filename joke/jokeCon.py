@@ -114,8 +114,8 @@ class JokeCon:
         """
 
         if response_type == "quote":
-            quoteAPI = QuoteApi()
-            quote, author = quoteAPI.quote_api_request()
+            quote_api = QuoteApi()
+            quote, author = quote_api.quote_api_request()
 
             self.__t2s.trigger(
                 self.build_quote_announcement(
@@ -124,8 +124,8 @@ class JokeCon:
                 True)
 
         elif response_type == "fortune_cookie":
-            fortune_cookieApi = FortuneCookieService()
-            reading = fortune_cookieApi.fortune_cookie_service_request()
+            fortune_cookie_api = FortuneCookieService()
+            reading = fortune_cookie_api.fortune_cookie_service_request()
 
             self.__t2s.trigger(
                 self.build_fortune_cookie_announcement(
@@ -133,11 +133,11 @@ class JokeCon:
                 True)
 
         else:
-            jokeAPI = JokeApi()
+            joke_api = JokeApi()
             if len(self.__blacklist) == 0:
-                joke = jokeAPI.joke_api_request()
+                joke = joke_api.joke_api_request()
             else:
-                joke = jokeAPI.joke_api_request(self.__blacklist)
+                joke = joke_api.joke_api_request(self.__blacklist)
 
             self.__t2s.trigger(
                 self.build_joke_announcement(
@@ -153,7 +153,7 @@ class JokeCon:
 
         return f"Hey <say-as interpret-as=\"name\" format= \"undefined\">{name}</say-as>. " \
                f"Would you like to hear a joke to lighten the mood? " \
-               f"Or an inspiring quote or a fortune cookie reading? "
+               f"Or an inspiring quote or a fortune cookie reading?"
 
     def build_quote_announcement(self, quote, author):
         """
