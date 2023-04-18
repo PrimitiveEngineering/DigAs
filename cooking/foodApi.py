@@ -112,10 +112,3 @@ class FoodApi:
         if float_value.is_integer():
             return int(float_value)
         return float_value
-
-
-f = FoodApi()
-
-food_list = ['apple', 'sugar']
-
-print(f.food_api_random_request())
