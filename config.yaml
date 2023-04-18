@@ -22,7 +22,7 @@ joke:
     - "explicit"
 
 cooking:
-  time:
+  times:
     - "18:00"
   artist:
     - "Eminem"

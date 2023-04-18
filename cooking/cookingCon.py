@@ -42,8 +42,8 @@ class CookingCon:
 
     def get_config(self):
         """
-        Reading the config file and writing parameters to class attributs
-        excpected:
+        Reading the config file and writing parameters to class attributes
+        expected:
             global.username -> string
             joke.times -> array
             joke.blacklist -> array
