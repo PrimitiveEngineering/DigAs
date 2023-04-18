@@ -18,7 +18,7 @@ class FoodApi:
         load_dotenv(find_dotenv())
         self.api_key = os.getenv('SPOONACULAR_API_KEY')
 
-    def food_api_find_by_ingredients_request(self, ingredient_list, ranking=2):
+    def food_api_find_by_ingredients_request(self, ingredient_list, ranking=1):
         """
         Arguments:
         - list containing all ingredients

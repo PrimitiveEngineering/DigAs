@@ -20,3 +20,11 @@ joke:
     - "racist"
     - "sexist"
     - "explicit"
+
+cooking:
+  time:
+    - "18:00"
+  artist:
+    - "Eminem"
+    - "Imagine Dragons"
+    - "2WEI"
