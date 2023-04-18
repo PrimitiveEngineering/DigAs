@@ -92,10 +92,3 @@ class TestCookingCon(unittest.TestCase):
     def test_run_recipe_choice_other(self):
         CC.run_recipe_choice("ORDER", "MEAT")
         self.assertTrue(True)
-
-    # def test_build_recipe_announcement(self):
-    #     self.assertTrue(True)
-
-    # def test_get_config(self):
-    #     Reset Time of Alarm
-    #     self.assertTrue(True)
