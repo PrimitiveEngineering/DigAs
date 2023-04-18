@@ -23,3 +23,6 @@ joke:
 
 time:
   reminder_time: 20
+
+schedule:
+  guard_min: 5
