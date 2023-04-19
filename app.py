@@ -4,6 +4,7 @@ from core.speechToText import Speech2TextService
 from core.textToSpeech import Text2SpeechService
 from morning.morningCon import MorningCon
 from joke.jokeCon import JokeCon
+from cooking.cookingCon import CookingCon
 
 
 def main():
@@ -14,6 +15,7 @@ def main():
     # Init use case controller
     MorningCon(t2s, s2t)
     JokeCon(t2s, s2t)
+    CookingCon(t2s, s2t)
 
     # Run scheduler
     while True:
