@@ -42,6 +42,12 @@ class Speech2TextUtil:
         return (user_input, False)
 
     def contains_word(self, sentence, words):
+        """
+        checks if a sentence contains any of the specified words
+        :param sentence:
+        :param words:
+        :return: bool
+        """
 
         sentence = sentence.upper()
 
