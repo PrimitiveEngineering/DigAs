@@ -119,6 +119,9 @@ class ScheduleUtil:
         meeting_overlap = False
         for meeting in meetings:
             if meeting[0] <= job.next_run <= meeting[1]:
+                # ---DEMO---
+                print(f"DEMO meeting overlap: moved job {job.do} to {meeting[1] + timedelta(minutes=meeting_shift_min)} with job index {schedule.get_jobs().index(job)}")
+                # ---DEMO---
                 job.next_run = meeting[1] + timedelta(minutes=meeting_shift_min)
                 meeting_overlap = True
 

@@ -11,7 +11,7 @@ from cooking.cookingCon import CookingCon
 
 def main():
     # Init core components
-    t2s = Text2SpeechService("offline")
+    t2s = Text2SpeechService("azure")
     s2t = Speech2TextService("google")
     schedule_util = ScheduleUtil()
 
@@ -20,6 +20,15 @@ def main():
     JokeCon(t2s, s2t, schedule_util)
     TimemgrCon(t2s, s2t, schedule_util)
     CookingCon(t2s, s2t, schedule_util)
+
+    # ---DEMO---
+    # jobs = schedule.get_jobs("morning_routine")
+    # jobs = schedule.get_jobs("joke_routine")
+    # jobs = schedule.get_jobs("cooking_routine")
+    # jobs = schedule.get_jobs("meeting")
+    #
+    # jobs[0].run()
+    # ---DEMO---
 
     # Run scheduler
     while True:
