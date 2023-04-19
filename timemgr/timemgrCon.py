@@ -145,7 +145,7 @@ class TimemgrCon:
         :return:
         """
 
-        return f"Ok, i hope you have a nice event."
+        return f"Ok, I hope you have a nice event."
 
     def build_more_info_announcement(self, event_name, event_location, event_description):
         """
