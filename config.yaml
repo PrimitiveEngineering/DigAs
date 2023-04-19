@@ -1,5 +1,9 @@
 global:
   username: "Not Richard"
+  
+schedule:
+  meeting_shift_min: 2
+  job_shift_min: 1
 
 morning:
   alarm: "11:00"
@@ -24,6 +28,10 @@ joke:
 time:
   reminder_time: 20
 
-schedule:
-  meeting_shift_min: 2
-  job_shift_min: 1
+cooking:
+  times:
+    - "18:00"
+  artist:
+    - "Eminem"
+    - "Imagine Dragons"
+    - "2WEI"

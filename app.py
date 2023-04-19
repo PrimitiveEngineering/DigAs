@@ -6,6 +6,7 @@ from core.scheduleUtil import ScheduleUtil
 from morning.morningCon import MorningCon
 from joke.jokeCon import JokeCon
 from timemgr.timemgrCon import TimemgrCon
+from cooking.cookingCon import CookingCon
 
 
 def main():
@@ -18,6 +19,7 @@ def main():
     MorningCon(t2s, s2t)
     JokeCon(t2s, s2t)
     TimemgrCon(t2s, s2t, schedule_util)
+    CookingCon(t2s, s2t)
 
     # Run scheduler
     while True:
