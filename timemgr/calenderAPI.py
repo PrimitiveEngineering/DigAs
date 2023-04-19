@@ -1,11 +1,11 @@
 from gcsa.event import Event
 from gcsa.google_calendar import GoogleCalendar
+import os
 
 from beautiful_date import *
 
 
 class CalenderAPI:
-
     __instance = None
 
     # singleton pattern
@@ -16,7 +16,8 @@ class CalenderAPI:
 
     def __init__(self):
         self.calendar = GoogleCalendar('primitiveengineeringdhbw@gmail.com',
-                                       credentials_path='./google_secret.json')
+                                       credentials_path=os.path.abspath(os.path.join(os.path.dirname(__file__), '..',
+                                                                                     'google_secret.json')))
 
     def print_events(self):
         for event in self.calendar:
