@@ -7,7 +7,7 @@ import yaml
 from cooking.foodApi import FoodApi
 from cooking.musicApi import MusicApi
 from cooking.randomSongPicker import RandomSongPicker
-from core.util import Speech2TextUtil
+from core.speechToTextUtil import Speech2TextUtil
 
 
 class CookingCon:
@@ -25,11 +25,12 @@ class CookingCon:
             cls.__instance = super().__new__(cls)
         return cls.__instance
 
-    def __init__(self, t2s, s2t):
+    def __init__(self, t2s, s2t, schedule_util):
         """
         Cooking Service
         :param t2s: Text2Speech Service
         :param s2t: Speech2Text Service
+        :param schedule_util: Schedule Utility Service
         """
 
         self.__t2s = t2s
@@ -39,6 +40,7 @@ class CookingCon:
         self.food_api = FoodApi()
         schedule.every().day.at("00:00").do(self.start_cooking_routine).tag("cooking_routine")
         self.get_config()
+        schedule_util.load_config_registrator(self.get_config)
 
     def get_config(self):
         """
@@ -70,8 +72,6 @@ class CookingCon:
         Runs the cooking routine
         :return: none
         """
-
-        self.get_config()
 
         # FoodApi
         self.__t2s.trigger(

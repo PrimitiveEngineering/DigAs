@@ -1,6 +1,6 @@
 from timemgr.calenderAPI import CalenderAPI
 from timemgr.time import Time
-from core.util import Speech2TextUtil
+from core.speechToTextUtil import Speech2TextUtil
 import schedule
 import yaml
 import os

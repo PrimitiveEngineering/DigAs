@@ -1,5 +1,5 @@
 """ test_util
-    * all basic-tests for util.py are implemented here
+    * all basic-tests for speechToTextUtil.py are implemented here
     author:     inf20086@lehre.dhbw-stuttgart.de
     date:       06.04.2023
     version:    0.0.1
@@ -8,7 +8,7 @@
 
 import unittest
 
-from core.util import Speech2TextUtil
+from core.speechToTextUtil import Speech2TextUtil
 
 S2TU = Speech2TextUtil()
 

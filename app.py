@@ -16,10 +16,10 @@ def main():
     schedule_util = ScheduleUtil()
 
     # Init use case controller
-    MorningCon(t2s, s2t)
-    JokeCon(t2s, s2t)
+    MorningCon(t2s, s2t, schedule_util)
+    JokeCon(t2s, s2t, schedule_util)
     TimemgrCon(t2s, s2t, schedule_util)
-    CookingCon(t2s, s2t)
+    CookingCon(t2s, s2t, schedule_util)
 
     # Run scheduler
     while True:

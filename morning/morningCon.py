@@ -1,6 +1,6 @@
 from morning.weatherApi import OpenWeather
 from morning.googleMapsApi import GoogleMapsApi
-from core.util import Speech2TextUtil
+from core.speechToTextUtil import Speech2TextUtil
 import schedule
 import yaml
 import os
@@ -23,17 +23,19 @@ class MorningCon:
             cls.__instance = super().__new__(cls)
         return cls.__instance
 
-    def __init__(self, t2s, s2t):
+    def __init__(self, t2s, s2t, schedule_util):
         """
         Morning Service
         :param t2s: Text2Speech Service
         :param s2t: Speech2Text Service
+        :param schedule_util: Schedule Utility Service
         """
 
         self.__t2s = t2s
         self.__s2t = s2t
         schedule.every().day.at(self.__time_alarm).do(self.start_morning_routine).tag("morning_routine")
         self.get_config()
+        schedule_util.load_config_registrator(self.get_config)
 
     def get_config(self):
         """

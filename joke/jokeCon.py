@@ -1,7 +1,7 @@
 from joke.jokeApi import JokeApi
 from joke.fortuneCookieService import FortuneCookieService
 from joke.quoteApi import QuoteApi
-from core.util import Speech2TextUtil
+from core.speechToTextUtil import Speech2TextUtil
 import schedule
 import yaml
 import numpy as np
@@ -26,17 +26,19 @@ class JokeCon:
             cls.__instance = super().__new__(cls)
         return cls.__instance
 
-    def __init__(self, t2s, s2t):
+    def __init__(self, t2s, s2t, schedule_util):
         """
         joke Service
         :param t2s: Text2Speech Service
         :param s2t: Speech2Text Service
+        :param schedule_util: Schedule Utility Service
         """
 
         self.__t2s = t2s
         self.__s2t = s2t
         schedule.every().day.at("00:00").do(self.start_joke_routine).tag("joke_routine")
         self.get_config()
+        schedule_util.load_config_registrator(self.get_config)
 
         # Schedule a job for the next minute DEBUG
         # now = datetime.now()
@@ -74,8 +76,6 @@ class JokeCon:
         Runs the joke routine
         :return: none
         """
-
-        self.get_config()
 
         self.__t2s.trigger(
             self.build_joke_starting_announcement(
