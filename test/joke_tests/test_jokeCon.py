@@ -28,12 +28,12 @@ class TestMorningCon(unittest.TestCase):
     def test_build_joke_starting_announcement(self):
         correct_data = f"Hey <say-as interpret-as=\"name\" format= \"undefined\">Bob</say-as>. " \
                        f"Would you like to hear a joke to lighten the mood? " \
-                       f"Or an inspiring quote or a fortune cookie reading? "
+                       f"Or an inspiring quote or a fortune cookie reading?"
         self.assertEqual(correct_data, JC.build_joke_starting_announcement("Bob"))
 
     def test_build_quote_announcement(self):
-        correct_data = f"The quote i got for you is by <say-as interpret-as=\"name\" format= \"undefined\">Albert Einstein</say-as>. " \
-                       f"It goes as follows: " \
+        correct_data = f"The quote i got for you is by <say-as interpret-as=\"name\" format= \"undefined\">Albert Einstein</say-as>." \
+                       f" It goes as follows: " \
                        f"<break strength=\"strong\" />if she aint got the drip, she get no xxx"
         self.assertEqual(correct_data,
                          JC.build_quote_announcement("if she aint got the drip, she get no xxx", "Albert Einstein"))

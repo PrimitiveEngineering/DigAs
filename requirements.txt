@@ -9,3 +9,5 @@ PyAudio == 0.2.13
 SpeechRecognition == 3.10.0
 numpy==1.24.2
 spotipy~=2.23.0
+gcsa~=2.1.0
+pytz~=2022.7
