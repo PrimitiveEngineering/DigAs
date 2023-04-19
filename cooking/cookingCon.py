@@ -237,7 +237,7 @@ class CookingCon:
                f"The ingredients for this recipe are the following. "
 
         for key in ingredients:
-            text += key + " " + ingredients[key] + ". "
+            text += ingredients[key] + " " + key + ". "
 
         if not steps:
             text += f"This recipe does not include a step by step instruction. "
