@@ -159,7 +159,11 @@ class TimemgrCon:
         text = f"The Event is {event_name}."
         if event_location is not None:
             text = text[:-1]
-            text += f" and you planned to go to {event_location}."
+            event_location_lower = event_location.lower()
+            if "deutschland" in event_location_lower:
+                text += f" and you planned to go to <lang xml:lang=\"de-DE\">{event_location}</lang>."
+            else:
+                text += f" and you planned to go to {event_location}."
         if event_description is not None:
             text += f" Your description reads: {event_description}"
 

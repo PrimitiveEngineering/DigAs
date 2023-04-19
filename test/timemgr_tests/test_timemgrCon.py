@@ -51,6 +51,10 @@ class TestTimemgrCon(unittest.TestCase):
         TC.build_no_info_announcement()
         self.assertTrue(True)
 
-    def test_build_more_info_announcement(self):
+    def test_build_more_info_announcement_english(self):
         correct_string_one=f"The Event is EVENTNAME and you planned to go to EVENTLOC. Your description reads: EVENTDESC"
         self.assertEqual(correct_string_one,TC.build_more_info_announcement("EVENTNAME","EVENTLOC","EVENTDESC"))
+
+    def test_build_more_info_announcement_german(self):
+        correct_string_one=f"The Event is EVENTNAME and you planned to go to <lang xml:lang=\"de-DE\">Deutschland EVENTLOC</lang>. Your description reads: EVENTDESC"
+        self.assertEqual(correct_string_one,TC.build_more_info_announcement("EVENTNAME","Deutschland EVENTLOC","EVENTDESC"))
