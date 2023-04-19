@@ -75,6 +75,11 @@ class ScheduleUtil:
         self.check_jobs(schedule.get_jobs(), self.job_shift_min)
 
     def clean_timezones(self, meetings):
+        """
+        Removes the tzinfo object of all datetime objects
+        :param meetings:
+        :return: (2d Array )
+        """
         formatted_meetings = []
         for meeting in meetings:
             formatted_meet_times = []
@@ -120,6 +125,12 @@ class ScheduleUtil:
         return meeting_overlap
 
     def check_jobs(self, jobs, job_shift_min):
+        """
+        Checks jobs collision for all jobs.
+        :param jobs: schedule.get_jobs()
+        :param job_shift_min: amount of minutes shifted after the job
+        :return:
+        """
         # Format job time
         for job in jobs:
             # Hop over utility jobs
@@ -143,6 +154,13 @@ class ScheduleUtil:
                 pass
 
     def check_job_overlap(self, current_job, jobs_without_utility, job_shift_min):
+        """
+        Checks if one job overlaps with a other job.
+        :param current_job: current job of schedule.get_jobs()
+        :param jobs_without_utility: copy of schedule.get_jobs() without utility jobs
+        :param job_shift_min: amount of minutes shifted after the job
+        :return: (boolean) if job collides with other job
+        """
         job_overlap = False
         for other_job in jobs_without_utility:
             if current_job == other_job:
