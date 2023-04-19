@@ -46,6 +46,7 @@ class _OfflineT2S(Text2SpeechAbstract):
         :param ssml: (optional) Offline t2s doesn't support ssml
         :return: none
         """
+
         engine = pyttsx3.init()
         engine.setProperty('rate', 150)
         voices = engine.getProperty('voices')

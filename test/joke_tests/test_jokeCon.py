@@ -9,10 +9,12 @@ import unittest
 from joke.jokeCon import JokeCon
 from core.speechToText import Speech2TextService
 from core.textToSpeech import Text2SpeechService
+from core.scheduleUtil import ScheduleUtil
 
 t2s = Text2SpeechService("offline")
 s2t = Speech2TextService("google")
-JC = JokeCon(t2s, s2t)
+schedule_util = ScheduleUtil()
+JC = JokeCon(t2s, s2t, schedule_util)
 
 
 class TestMorningCon(unittest.TestCase):

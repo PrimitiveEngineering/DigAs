@@ -16,6 +16,7 @@ class MusicApi:
         load_dotenv(find_dotenv())
         self.client_id = os.getenv('SPOTIFY_CLIENT_ID')
         self.client_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
+        self.redirect_uri = os.getenv('SPOTIFY_REDIRECT_URI')
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=self.scope,
                                                             redirect_uri=self.redirect_uri,
                                                             client_id=os.getenv('SPOTIFY_CLIENT_ID'),

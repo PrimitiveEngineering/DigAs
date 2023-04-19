@@ -6,13 +6,17 @@
     license:    MIT
 """
 import unittest
+from unittest.mock import MagicMock, patch
+
 from cooking.cookingCon import CookingCon
 from core.speechToText import Speech2TextService
 from core.textToSpeech import Text2SpeechService
+from core.scheduleUtil import ScheduleUtil
 
 t2s = Text2SpeechService("offline")
 s2t = Speech2TextService("google")
-CC = CookingCon(t2s, s2t)
+schedule_util = ScheduleUtil()
+CC = CookingCon(t2s, s2t, schedule_util)
 
 
 class TestCookingCon(unittest.TestCase):
@@ -82,13 +86,19 @@ class TestCookingCon(unittest.TestCase):
         self.assertEqual(correct_string, CC.build_random_music_announcement("TITLE", "ARTIST"))
 
     def test_run_recipe_choice_nothing(self):
-        CC.run_recipe_choice("nothing", "MEAT")
-        self.assertTrue(True)
+        with patch("core.textToSpeech._OfflineT2S.trigger") as mock_trigger:
+
+            CC.run_recipe_choice("nothing", "MEAT")
+            self.assertTrue(True)
 
     def test_run_recipe_choice_recipe(self):
-        CC.run_recipe_choice("recipe", "MEAT")
-        self.assertTrue(True)
+        with patch("core.textToSpeech._OfflineT2S.trigger") as mock_trigger:
+
+            CC.run_recipe_choice("recipe", "MEAT")
+            self.assertTrue(True)
 
     def test_run_recipe_choice_other(self):
-        CC.run_recipe_choice("ORDER", "MEAT")
-        self.assertTrue(True)
+        with patch("core.textToSpeech._OfflineT2S.trigger") as mock_trigger:
+
+            CC.run_recipe_choice("ORDER", "MEAT")
+            self.assertTrue(True)

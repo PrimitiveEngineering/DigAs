@@ -44,7 +44,7 @@ class TestScheduleUtil(unittest.TestCase):
         self.assertEqual(date_two, SU.clean_timezones(date_one))
 
     def test_check_jobs_meeting(self):
-        date = [[datetime(2011, 8, 15, 8, 15, 12, 0)]]
+        date = [[datetime.now(), datetime.now() + timedelta(minutes=1)]]
         SU.check_jobs_meeting(job, date, 5)
         self.assertTrue(True)
 

@@ -17,7 +17,10 @@ class TestMusicApi(TestCase):
         self.assertEqual(None, MA.play_requested_song("Days of Blues"))
 
     def test_search_song_uri(self):
-        result_string = "spotify:track:6fLnMSHygIfRzdfPlplrCc"
+        # DE accounts:
+        # result_string = "spotify:track:6fLnMSHygIfRzdfPlplrCc"
+        # Other region:
+        result_string = "spotify:track:6tsYTpKmcEWCaYTPgWJdfG"
         self.assertEqual(result_string, MA.search_song_uri("Days of Blues"))
 
     def test_build_requested_song_string(self):
