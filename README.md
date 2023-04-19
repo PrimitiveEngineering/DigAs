@@ -15,8 +15,8 @@ https://developers.google.com/maps/documentation/javascript/get-api-key?hl=de
 * configure Azure speech to text API (if not only offline TTS works)<br>
 https://speech.microsoft.com/portal/voicegallery
 
-4.) edit config.yaml to your liking
+4.) Edit config.yaml to your liking
 
-5.) start app.py
+5.) Start app.py
 
     python ./app.py
