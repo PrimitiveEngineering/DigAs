@@ -34,7 +34,7 @@ class ScheduleUtil:
         with open(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'config.yaml')), "r") as file:
             yaml_config = yaml.safe_load(file)
             self.meeting_shift_min = yaml_config["schedule"]["meeting_shift_min"]
-            self.meeting_shift_min = yaml_config["schedule"]["job_shift_min"]
+            self.job_shift_min = yaml_config["schedule"]["job_shift_min"]
 
     def load_config_registrator(self, config_function):
         """
