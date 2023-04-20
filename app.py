@@ -27,12 +27,12 @@ def main():
     # jobs = schedule.get_jobs("joke_routine")
     # jobs = schedule.get_jobs("meeting")
 
-    utilities = schedule.get_jobs("utility")
-    for util in utilities:
-        util.run()
+    # utilities = schedule.get_jobs("utility")
+    # for util in utilities:
+    #     util.run()
 
     # jobs[0].run()
-    return
+    # return
     # ---DEMO---
 
     # Run scheduler
